@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Manrope Variable', 'Manrope', 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-display: 'Manrope Variable', 'Manrope', 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  --color-bg-canvas: #F4F7FB;
+  --color-bg-card: #FFFFFF;
+  --color-bg-elevated: #F8FAFC;
+  --color-border: #E5E9F0;
+  --color-primary: #0B192C;
+  --color-blue: #3D74D9;
+  --color-emerald: #10B981;
+  --color-cyan: #06B6D4;
+  --color-rose: #EF4444;
+  --color-text-primary: #0B192C;
+  --color-text-muted: #5B6D85;
+
+  /* MatthOrg Unified SaaS Typography Scale */
+  --font-family-heading: 'Manrope Variable', 'Manrope', 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-family-body: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --text-hero-size: clamp(2.375rem, 4.4vw, 3.875rem);      /* 38px mobile -> 62px desktop */
+  --text-page-size: clamp(2.125rem, 3.1vw, 2.875rem);      /* 34px mobile -> 46px desktop */
+  --text-dashboard-size: clamp(1.75rem, 2.2vw, 2.25rem);   /* 28px mobile -> 36px desktop */
+  --text-section-size: clamp(1.4375rem, 1.75vw, 1.75rem);  /* 23px mobile -> 28px desktop */
+  --text-card-size: clamp(1.25rem, 1.35vw, 1.4375rem);     /* 20px -> 23px */
+  --text-body-size: 1rem;                                  /* 16px base (16-18px) */
+  --text-body-lg-size: 1.125rem;                           /* 18px editorial */
+  --text-nav-size: 0.9375rem;                              /* 15px (15-16px) */
+  --text-button-size: 1rem;                                /* 16px (16-17px) */
+  --text-label-size: 0.9375rem;                            /* 15px (14-16px) */
+  --text-table-size: 0.9375rem;                            /* 15px (14-16px) */
+  --text-secondary-size: 0.9375rem;                        /* 15px (15-16px) */
+  --text-meta-size: 0.8125rem;                             /* 13px minimum floor */
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    font-family: var(--font-family-body);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #F4F7FB;
+    color: #0B192C;
+    font-family: var(--font-family-body);
+    font-size: var(--text-body-size);
+    line-height: 1.6;
+    font-weight: 400;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+  }
+
+  h2 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.28;
+  }
+
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  button, input, select, textarea, th, td, label, nav {
+    font-family: var(--font-family-body);
+  }
+
+  th, td {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .font-heading {
+    font-family: var(--font-family-heading);
+  }
+
+  .type-hero {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-hero-size);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .type-page-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-page-size);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.14;
+    text-wrap: balance;
+  }
+
+  .type-dashboard-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-dashboard-size);
+    font-weight: 800;
+    letter-spacing: -0.022em;
+    line-height: 1.18;
+  }
+
+  .type-section-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-section-size);
+    font-weight: 700;
+    letter-spacing: -0.018em;
+    line-height: 1.22;
+  }
+
+  .type-card-title {
+    font-family: var(--font-family-heading);
+    font-size: var(--text-card-size);
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    line-height: 1.3;
+  }
+
+  .type-body {
+    font-family: var(--font-family-body);
+    font-size: var(--text-body-size);
+    font-weight: 400;
+    line-height: 1.62;
+  }
+
+  .type-secondary {
+    font-family: var(--font-family-body);
+    font-size: var(--text-secondary-size);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .type-meta {
+    font-family: var(--font-family-body);
+    font-size: var(--text-meta-size);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+
+/* Custom modern scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

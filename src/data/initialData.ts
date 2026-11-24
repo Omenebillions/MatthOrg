@@ -1,0 +1,45 @@
+import { AppState } from '../types';
+
+export const initialData: AppState = {
+  user: {
+    id: '',
+    name: 'Business Professional',
+    email: '',
+    plan: 'free',
+    createdAt: new Date().toISOString(),
+  },
+  business: {
+    id: '',
+    user_id: '',
+    business_name: 'My Service Business',
+    logo: '/logo.png',
+    phone: '',
+    whatsapp: '',
+    email: '',
+    address: '',
+    country: 'Nigeria',
+    currency: '₦',
+    tax_name: 'VAT',
+    tax_rate: 7.5,
+    categories_offered: ['General Commercial Services'],
+    locations_served: ['Lagos State', 'Abuja (FCT)', 'Nationwide'],
+    payment_details: {
+      bank_name: '',
+      account_name: '',
+      account_number: '',
+      notes: 'Include quotation or invoice number as payment reference. Send confirmation upon payment.',
+    },
+    terms: '1. Quotation valid for 14 days from date of issue.\n2. Workmanship and service guarantee applies.',
+  },
+  leads: [],
+  quotes: [],
+  invoices: [],
+  customers: [],
+  products: [],
+  templates: [],
+  followups: [],
+  aiUsage: {
+    month: new Date().toISOString().slice(0, 7),
+    count: 0,
+  },
+};

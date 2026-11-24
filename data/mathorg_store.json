@@ -1,0 +1,186 @@
+{
+  "__artisan_recommendations": [
+    {
+      "id": "rec_1792724186422_iofa3",
+      "artisan_name": "Engr. Tunde Solar Tech",
+      "trade_category": "Solar Engineers & Inverter Specialists",
+      "phone": "+2348030001122",
+      "state": "Lagos",
+      "town": "Ikeja",
+      "services_offered": [
+        "Solar Inverter 5kVA",
+        "LiFePO4 Batteries"
+      ],
+      "level": "experienced",
+      "recommender_name": "Bayo Ade",
+      "recommender_relationship": "Client",
+      "work_done": "Completed service work satisfactorily.",
+      "recommendation_note": "Tunde installed our solar backup flawlessly.",
+      "rating": 5,
+      "pricing_tier": "fair",
+      "vouches_count": 2,
+      "verified": true,
+      "created_at": "2026-10-23T02:56:26.422Z",
+      "outreach_status": "whatsapp_sent",
+      "updated_at": "2026-10-23T03:29:20.346Z"
+    }
+  ],
+  "__customer_requests": [],
+  "__search_analytics": [
+    {
+      "id": "sa_1795003147637_0n7h",
+      "query": "Need industrial cold room compressor technician in Uyo",
+      "intent": "service_discovery",
+      "category": "HVAC",
+      "location": "Uyo",
+      "productResultsCount": 0,
+      "professionalResultsCount": 0,
+      "sponsoredShownCount": 0,
+      "sessionId": "test_sess_1795003142188",
+      "created_at": "2026-11-18T11:59:07.637Z"
+    },
+    {
+      "id": "sa_1794674554517_7k99",
+      "query": "I need a hyperbaric underwater welding diver in Sokoto under ₦500,000",
+      "intent": "service_discovery",
+      "location": "Sokoto",
+      "budgetMax": 500000,
+      "productResultsCount": 0,
+      "professionalResultsCount": 0,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T16:42:34.517Z"
+    },
+    {
+      "id": "sa_1794647495008_ofn2",
+      "query": "24 Allen Avenue, Ikeja, Lagos",
+      "intent": "service_discovery",
+      "category": "Plumbing",
+      "location": "24 Allen Avenue, Ikeja, Lagos",
+      "productResultsCount": 0,
+      "professionalResultsCount": 0,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T09:11:35.008Z"
+    },
+    {
+      "id": "sa_1794647445497_hchq",
+      "query": "Find me a 5KVA inverter under 800000",
+      "intent": "product_search",
+      "category": "Solar & Power",
+      "budgetMax": 800000,
+      "productResultsCount": 0,
+      "professionalResultsCount": 1,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T09:10:45.497Z"
+    },
+    {
+      "id": "sa_1794647413931_qmsb",
+      "query": "I need a plumber",
+      "intent": "service_discovery",
+      "category": "Plumbing",
+      "productResultsCount": 0,
+      "professionalResultsCount": 0,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T09:10:13.931Z"
+    },
+    {
+      "id": "sa_1794646568735_tmbj",
+      "query": "I need a plumber around Ikeja",
+      "intent": "service_discovery",
+      "category": "Plumbing",
+      "location": "Ikeja",
+      "productResultsCount": 0,
+      "professionalResultsCount": 0,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T08:56:08.735Z"
+    },
+    {
+      "id": "sa_1794646563299_b24a",
+      "query": "Find me a 5KVA inverter under 800000",
+      "intent": "product_search",
+      "category": "Solar & Power",
+      "budgetMax": 800000,
+      "productResultsCount": 0,
+      "professionalResultsCount": 1,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-14T08:56:03.299Z"
+    },
+    {
+      "id": "sa_1794568067541_vhsm",
+      "query": "Find me a 5KVA inverter under 800000",
+      "intent": "product_search",
+      "category": "Solar & Power",
+      "budgetMax": 800000,
+      "productResultsCount": 0,
+      "professionalResultsCount": 1,
+      "sponsoredShownCount": 0,
+      "created_at": "2026-11-13T11:07:47.541Z"
+    }
+  ],
+  "__data_import_jobs": [],
+  "__catalog_products": [],
+  "__commerce_conversations": [
+    {
+      "sessionId": "test_sess_1795003142188",
+      "title": "Need industrial cold room compressor technician in Uyo",
+      "turns": [
+        {
+          "userMessage": "Need industrial cold room compressor technician in Uyo",
+          "assistantReply": "I am sorry, but no verified match for an industrial cold room compressor technician in Uyo exists in our database yet. Would you like me to register your request for MatthOrg Fulfilment sourcing?",
+          "intent": "service_discovery",
+          "productsCount": 0,
+          "professionalsCount": 0,
+          "sponsoredCount": 0,
+          "created_at": "2026-11-18T11:59:07.638Z"
+        }
+      ],
+      "created_at": "2026-11-18T11:59:07.638Z",
+      "updated_at": "2026-11-18T11:59:07.638Z"
+    }
+  ],
+  "__fulfilment_requests": [],
+  "__cleared_customer_request_ids": [
+    "ful_1795008847858_b6ow",
+    "FUL-847858",
+    "sa_req_sa_1794646568735_tmbj",
+    "REQ-514914",
+    "sa_req_sa_1794647413931_qmsb",
+    "REQ-133774",
+    "sa_req_sa_1794647445497_hchq",
+    "REQ-208468",
+    "sa_req_sa_1794647495008_ofn2",
+    "REQ-869036",
+    "sa_req_sa_1794674554517_7k99",
+    "REQ-338604",
+    "req_1795003147639_e33g",
+    "REQ-771938",
+    "req_1792923177083",
+    "REQ-437918"
+  ],
+  "__user_accounts": {
+    "admin_platform_root": {
+      "id": "admin_platform_root",
+      "user_id": "admin_platform_root",
+      "email": "ejaetaomene@gmail.com",
+      "name": "MatthOrg Platform Admin",
+      "role": "admin",
+      "isAdmin": true,
+      "plan": "business",
+      "created_at": "2026-11-18T13:33:44.533Z",
+      "updated_at": "2026-11-18T13:33:44.533Z"
+    }
+  },
+  "__demand_campaigns": [],
+  "__sponsored_campaigns": [],
+  "__ad_controls": {
+    "global_ads_enabled": true,
+    "max_sponsored_per_response": 1,
+    "min_relevance_threshold": 45,
+    "ad_frequency": "every_matching_response",
+    "allow_over_budget_ads": false,
+    "updated_at": "2026-11-18T13:34:07.813Z"
+  },
+  "__product_enquiries": [],
+  "__admin_leads": [],
+  "__directory_businesses": [],
+  "__service_offerings": []
+}
