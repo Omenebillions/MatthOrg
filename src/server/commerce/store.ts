@@ -511,10 +511,14 @@ export function findDirectoryBusinessDuplicate(params: {
   phone?: string;
   ownerUserId?: string;
   linkedBusinessId?: string;
+  claimDirectoryBusinessId?: string;
+  claimToken?: string;
+  authPhone?: string;
 }): {
   existing: DirectoryBusiness | null;
   matchedBy: 'id' | 'phone' | 'none';
   ownedByCaller: boolean;
+  isUnclaimed: boolean;
 } {
   const list = getDirectoryBusinesses();
   const phoneKey = extractNigerianPhoneKey(params.phone);
@@ -523,12 +527,28 @@ export function findDirectoryBusinessDuplicate(params: {
     const phoneMatch = list.find((b) => nigerianPhonesMatch(b.phone, params.phone) || nigerianPhonesMatch(b.whatsapp, params.phone));
     if (phoneMatch) {
       const matchOwner = (phoneMatch as any).owner_user_id;
+      const isUnclaimed = !matchOwner && !phoneMatch.is_registered;
+      const storedClaimToken = (phoneMatch as any).claim_token;
+      const hasValidClaimToken = Boolean(
+        params.claimDirectoryBusinessId &&
+          phoneMatch.id === params.claimDirectoryBusinessId &&
+          storedClaimToken &&
+          params.claimToken &&
+          params.claimToken === storedClaimToken
+      );
+      const matchesAuthenticatedClaim = Boolean(
+        params.ownerUserId &&
+          isUnclaimed &&
+          (hasValidClaimToken ||
+            (params.authPhone && nigerianPhonesMatch(phoneMatch.phone, params.authPhone)))
+      );
       const ownedByCaller = Boolean(
         (params.ownerUserId && matchOwner && matchOwner === params.ownerUserId) ||
-        (params.linkedBusinessId &&
-          (phoneMatch.linked_business_id === params.linkedBusinessId || phoneMatch.id === params.linkedBusinessId))
+          (params.linkedBusinessId &&
+            (phoneMatch.linked_business_id === params.linkedBusinessId || phoneMatch.id === params.linkedBusinessId)) ||
+          matchesAuthenticatedClaim
       );
-      return { existing: phoneMatch, matchedBy: 'phone', ownedByCaller };
+      return { existing: phoneMatch, matchedBy: 'phone', ownedByCaller, isUnclaimed };
     }
   }
 
@@ -537,11 +557,12 @@ export function findDirectoryBusinessDuplicate(params: {
       (b) => b.linked_business_id === params.linkedBusinessId || b.id === params.linkedBusinessId
     );
     if (idMatch) {
-      return { existing: idMatch, matchedBy: 'id', ownedByCaller: true };
+      const isUnclaimed = !(idMatch as any).owner_user_id && !idMatch.is_registered;
+      return { existing: idMatch, matchedBy: 'id', ownedByCaller: true, isUnclaimed };
     }
   }
 
-  return { existing: null, matchedBy: 'none', ownedByCaller: false };
+  return { existing: null, matchedBy: 'none', ownedByCaller: false, isUnclaimed: false };
 }
 
 export function upsertDirectoryBusiness(

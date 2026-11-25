@@ -17,15 +17,26 @@ import {
 } from './store';
 
 export const NIGERIA_LOCATIONS = [
-  'lagos', 'abuja', 'fct', 'ikeja', 'lekki', 'lekki phase 1', 'victoria island', 'vi', 'ikoyi', 'yaba',
-  'surulere', 'ajah', 'gbagada', 'maryland', 'magodo', 'festac', 'ikorodu', 'apapa', 'oshodi', 'alaba',
-  'mushin', 'agege', 'isolo', 'sangotedo', 'ikotun', 'egbeda', 'port harcourt', 'rivers', 'gra',
-  'ibadan', 'oyo', 'bodija', 'kano', 'enugu', 'ogun', 'abeokuta', 'arepo', 'magboro', 'mowe',
+  'lagos', 'lagos island', 'abuja', 'fct', 'ikeja', 'ikeja gra', 'lekki', 'lekki phase 1', 'ikate',
+  'victoria island', 'vi', 'ikoyi', 'yaba', 'surulere', 'ajah', 'gbagada', 'maryland', 'magodo',
+  'festac', 'ikorodu', 'apapa', 'oshodi', 'alaba', 'mushin', 'agege', 'orile agege', 'ifako',
+  'ifako-ijaiye', 'ifako agege', 'abule egba', 'ojodu', 'ogba', 'opebi', 'allen', 'isheri',
+  'ikosi', 'ikosi ketu', 'ketu', 'ojota', 'agboyi', 'ilupeju', 'somolu', 'bariga', 'anthony',
+  'ogudu', 'akowonjo', 'alimosho', 'ipaja', 'amuwo odofin', 'orile iganmu', 'isolo', 'sangotedo',
+  'ikotun', 'egbeda', 'port harcourt', 'rivers', 'gra', 'new gra', 'ibadan', 'oyo', 'bodija',
+  'kano', 'enugu', 'ogun', 'abeokuta', 'arepo', 'magboro', 'mowe', 'iju', 'akute', 'ajuwon',
   'benin', 'edo', 'delta', 'warri', 'asaba', 'owerri', 'imo', 'uyo', 'akwa ibom', 'kaduna', 'jos',
-  'plateau', 'maitama', 'wuse', 'wuse 2', 'garki', 'gwarinpa', 'asokoro', 'jabi', 'utako', 'lugbe',
-  'kubwa', 'life camp', 'anambra', 'awka', 'onitsha', 'nnewi', 'abia', 'aba', 'umuahia', 'kwara',
-  'ilorin', 'ondo', 'akure', 'osun', 'osogbo', 'oshogbo', 'ekiti', 'ado ekiti', 'calabar', 'cross river',
-  'bayelsa', 'yenagoa', 'kogi', 'lokoja', 'niger', 'minna', 'nasarawa', 'lafia', 'benue', 'makurdi',
+  'plateau', 'maitama', 'wuse', 'wuse 2', 'garki', 'garki 2', 'garki area 11', 'gwarinpa',
+  'asokoro', 'jabi', 'utako', 'lugbe', 'kubwa', 'life camp', 'durumi', 'kaura', 'wuye', 'kuchingoro',
+  'dakwo', 'kado', 'apo', 'gudu', 'deidei', 'dei-dei', 'kugbo', 'lokogoma', 'kabusa', 'katampe',
+  'galadimawa', 'karshi', 'cbd', 'central business district', 'area 1', 'area 2', 'area 10', 'area 11',
+  'abuloma', 'iwofe', 'rumuodara', 'rumuomasi', 'rumuagholu', 'rumuaghaolu', 'rukpokwu', 'woji',
+  'trans amadi', 'ada-george', 'ada george', 'mgbuoba', 'mgbuosimiri', 'mgbuesilara', 'ozuoba',
+  'd-line', 'd line', 'rumuokoro', 'rumuibekwe', 'rumuokwurusi', 'peter odili', 'eagle island',
+  'nkpogu', 'obia', 'diobu', 'mile 3', 'anambra', 'awka', 'onitsha', 'nnewi', 'abia', 'aba',
+  'umuahia', 'kwara', 'ilorin', 'ondo', 'akure', 'osun', 'osogbo', 'oshogbo', 'ekiti', 'ado ekiti',
+  'calabar', 'cross river', 'bayelsa', 'yenagoa', 'kogi', 'lokoja', 'niger', 'minna', 'nasarawa',
+  'lafia', 'benue', 'makurdi',
 ];
 
 export const ADDRESS_INDICATORS =
@@ -97,8 +108,15 @@ const TOKEN_SYNONYM_MAP: Record<string, string[]> = {
   mechanic: ['auto mechanic', 'car repair', 'toyota', 'diagnostic', 'engine'],
   plumber: ['plumbing', 'pipe', 'leak', 'borehole', 'sanitary', 'tap'],
   electrician: ['electrical', 'wiring', 'breaker', 'panel', 'power', 'light'],
-  inverter: ['solar inverter', 'hybrid inverter', '5kva', 'battery', 'solar'],
-  solar: ['solar panel', 'inverter', 'battery', 'lithium', 'renewable'],
+  carpenter: ['carpentry', 'furniture', 'woodwork', 'cabinet', 'joinery', 'upholstery'],
+  carpentry: ['carpenter', 'furniture', 'woodwork', 'cabinet', 'joinery'],
+  furniture: ['carpenter', 'carpentry', 'woodwork', 'chair', 'desk', 'office chair', 'table', 'sofa', 'cabinet'],
+  welder: ['welding', 'fabricator', 'fabrication', 'metal', 'steel', 'stainless', 'iron'],
+  welding: ['welder', 'fabrication', 'metalwork', 'steel', 'iron'],
+  tailor: ['tailoring', 'fashion', 'fashion designer', 'stitches', 'couture', 'bespoke', 'bridal', 'apparel'],
+  fashion: ['tailor', 'fashion designer', 'couture', 'bespoke', 'bridal', 'stitches'],
+  inverter: ['solar inverter', 'hybrid inverter', '5kva', 'battery', 'solar', 'solar installer'],
+  solar: ['solar panel', 'solar installer', 'inverter', 'battery', 'lithium', 'renewable'],
   fibre: ['fiber', 'isp', 'internet', 'broadband'],
   fiber: ['fibre', 'isp', 'internet', 'broadband'],
   cctv: ['camera', 'surveillance', 'security camera', 'nvr', 'access control'],
@@ -106,7 +124,6 @@ const TOKEN_SYNONYM_MAP: Record<string, string[]> = {
   cleaning: ['cleaner', 'fumigation', 'pest control', 'sanitization', 'janitorial'],
   laptop: ['macbook', 'hp', 'dell', 'lenovo', 'computer', 'pc'],
   phone: ['samsung', 'iphone', 'smartphone', 'android', 'mobile'],
-  furniture: ['chair', 'desk', 'office chair', 'table', 'sofa', 'cabinet'],
 };
 
 const SEARCH_STOPWORDS = new Set([
@@ -359,7 +376,11 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
   });
 
   const allServices = getServiceOfferings().filter((s) => s.approval_status === 'Approved');
-  const serviceCandidates: MatchedServiceCandidate[] = [];
+  const serviceCandidatesWithSort: Array<{
+    candidate: MatchedServiceCandidate;
+    locMatched: boolean;
+    rawScore: number;
+  }> = [];
 
   for (const svc of allServices) {
     const parentBiz = bizById.get(svc.business_id);
@@ -398,16 +419,19 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
       ...(parentBiz?.locations_served || []),
       parentBiz?.city,
       parentBiz?.state,
+      parentBiz?.address,
     ]
       .filter(Boolean)
       .join(' ');
 
+    let locMatched = false;
     if (location) {
       if (locationMatchesText(location, svcLoc)) {
-        score += 34;
+        locMatched = true;
+        score += 50;
         reasons.push(`Covers ${location}`);
       } else {
-        score -= 28;
+        score -= 35;
       }
     }
 
@@ -426,24 +450,33 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
     }
 
     if (score >= 18) {
-      serviceCandidates.push({
-        service: {
-          ...svc,
-          phone: parentBiz?.phone || svc.phone,
-          whatsapp: parentBiz?.whatsapp || parentBiz?.phone || svc.whatsapp,
-          email: parentBiz?.email || svc.email,
-          state: parentBiz?.state || svc.state,
-          city: parentBiz?.city || svc.city,
+      serviceCandidatesWithSort.push({
+        locMatched,
+        rawScore: score,
+        candidate: {
+          service: {
+            ...svc,
+            phone: parentBiz?.phone || svc.phone,
+            whatsapp: parentBiz?.whatsapp || parentBiz?.phone || svc.whatsapp,
+            email: parentBiz?.email || svc.email,
+            state: parentBiz?.state || svc.state,
+            city: parentBiz?.city || svc.city,
+          },
+          business: parentBiz,
+          matchScore: Math.min(99, score),
+          matchReasons: reasons.length > 0 ? reasons : [`Offers ${svc.service_name}`],
+          isVerified,
         },
-        business: parentBiz,
-        matchScore: Math.min(99, score),
-        matchReasons: reasons.length > 0 ? reasons : [`Offers ${svc.service_name}`],
-        isVerified,
       });
     }
   }
 
-  serviceCandidates.sort((a, b) => b.matchScore - a.matchScore);
+  serviceCandidatesWithSort.sort(
+    (a, b) =>
+      Number(b.locMatched) - Number(a.locMatched) ||
+      b.rawScore - a.rawScore
+  );
+  const serviceCandidates: MatchedServiceCandidate[] = serviceCandidatesWithSort.map((s) => s.candidate);
 
   // 3. SEARCH UNIFIED PROVIDERS / PROFESSIONALS / ARTISANS (Approved Directory + Registered + Validated Artisans)
   const store = readStoreFile();
@@ -529,7 +562,11 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
     return true;
   });
 
-  const proCandidates: MatchedProfessionalCandidate[] = [];
+  const proCandidatesWithSort: Array<{
+    candidate: MatchedProfessionalCandidate;
+    locMatched: boolean;
+    rawScore: number;
+  }> = [];
   for (const pro of dedupedPros) {
     const linkedSvcs = allServices.filter((s) => s.business_id === pro.id);
     const hay = [
@@ -558,12 +595,14 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
     if (score < 16 || hits.length === 0) continue;
 
     const proLoc = [pro.city, pro.state, pro.address, ...(pro.locations_served || [])].filter(Boolean).join(' ');
+    let locMatched = false;
     if (location) {
       if (locationMatchesText(location, proLoc)) {
-        score += 34;
+        locMatched = true;
+        score += 50;
         reasons.push(`Serves ${location}`);
       } else {
-        score -= 10;
+        score -= 35;
       }
     }
 
@@ -574,17 +613,28 @@ export function executeUniversalSearch(params: UniversalSearchParams): Universal
     }
 
     if (score >= 18) {
-      proCandidates.push({
-        professional: pro,
-        matchScore: Math.min(99, score),
-        matchReasons: Array.from(new Set(reasons)),
-        isVerified,
-        isPremium: Boolean(pro.is_paid || (pro.subscription_plan && pro.subscription_plan !== 'free')),
+      proCandidatesWithSort.push({
+        locMatched,
+        rawScore: score,
+        candidate: {
+          professional: pro,
+          matchScore: Math.min(99, score),
+          matchReasons: Array.from(new Set(reasons)),
+          isVerified,
+          isPremium: Boolean(pro.is_paid || (pro.subscription_plan && pro.subscription_plan !== 'free')),
+        },
       });
     }
   }
 
-  proCandidates.sort((a, b) => b.matchScore - a.matchScore);
+  proCandidatesWithSort.sort(
+    (a, b) =>
+      Number(b.locMatched) - Number(a.locMatched) ||
+      b.rawScore - a.rawScore ||
+      (Number(b.candidate.professional.rating) || 0) - (Number(a.candidate.professional.rating) || 0) ||
+      (Number(b.candidate.professional.vouches_count) || 0) - (Number(a.candidate.professional.vouches_count) || 0)
+  );
+  const proCandidates: MatchedProfessionalCandidate[] = proCandidatesWithSort.map((p) => p.candidate);
 
   const matchedBusinesses = proCandidates
     .map((c) => bizById.get(c.professional.id))

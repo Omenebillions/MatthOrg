@@ -179,6 +179,20 @@ export const ARTISAN_TRADE_CATEGORIES: TradeCategoryOption[] = [
       'Interlocking Stone Paving for Compounds',
     ],
   },
+  {
+    id: 'graphic_designer',
+    name: 'Graphic Designers & Brand Studios',
+    shortLabel: 'Graphic Designers',
+    iconName: 'Sparkles',
+    description: 'Logo design, corporate brand identity, print & signage, 3D motion graphics, and web visuals.',
+    popularServices: [
+      'Corporate Brand Identity & Logo Design',
+      'Large-Format Print, Flyers & Signage Production',
+      'Social Media Campaign Graphics & Packaging',
+      'Website UI/UX & Digital Marketing Assets',
+      '3D Animation, VFX & Motion Graphics',
+    ],
+  },
 ];
 
 export const NIGERIAN_STATES = [

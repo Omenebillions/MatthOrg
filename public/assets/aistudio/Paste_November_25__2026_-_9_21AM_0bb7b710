@@ -1,0 +1,192 @@
+state,city,trade,business_name,address,phone,rating,review_count,google_place_id,notes
+Lagos,Lagos,Plumber,YIDRIS PLUMBING SERVICE,"31 Tapa St, Lagos Island",+234 902 160 6286,4.8,174,ChIJBZi6DMT0OxAR9cEQrAHc5Jk,
+Lagos,Lagos,Plumber,G Flow Plumbing Service,"79 Mobolaji Bank Anthony Way, Opebi, Ikeja",+234 812 595 6440,4.8,24,ChIJA8E66m-jOxARN41gxSJ_b8U,
+Lagos,Lagos,Plumber,Jebe plumbing tech,"8 Freeman St, Lagos Island",+234 814 944 2345,4.9,20,ChIJYw3ESgqLOxARsKd6Lbe4Hc0,
+Lagos,Lagos,Plumber,Oga Plumber,"9A Alh. Adewunmi Fowewe St, Lekki",+234 703 059 8852,4.8,73,ChIJBfzuDET3OxART5uQyND0eEw,
+Lagos,Lagos,Plumber,PLUMBERS WORLD,"63 Paul Ave, Yakoyo Rd, Ojodu",+234 816 913 3000,4.7,7,ChIJz1ZQ4uqTOxARAudNJ2dC7OA,
+Lagos,Lagos,Plumber,Opeyemiade plumbing services,"5 Fawole St, Orile Agege",+234 816 141 7426,4.6,40,ChIJraryBs6ROxAR4R7bAGMfDK8,
+Lagos,Lagos,Plumber,Potamoi Waters Limited,"5 Oba Dosumu St, Ikeja GRA",+234 912 943 0141,4.8,13,ChIJjatGgS-SOxAR7xw7WeKsjoM,
+Lagos,Lagos,Plumber,Pipesnco plumbing,"Hub Plaza, 62 Addo Rd, Ajah",+234 811 819 4324,4.8,13,ChIJUcFWTeKNOxARnR0V5hwH7tk,
+Lagos,Lagos,Plumber,Adedare Nigeria Enterprises,"4 Oremerin St, Akowonjo",+234 803 371 3584,4.7,22,ChIJt3SnwUWROxARsk4BePd6VlA,
+Lagos,Lagos,Plumber,BABACUS MECHANICAL SERVICES,"2d Abiola Cl, Shonibare Est, Maryland",+234 906 123 1305,5.0,7,ChIJo_72ZgCTOxARJwvFPnNlDNc,plumbing and AC
+Lagos,Lagos,Electrician,M.A Electrical Services,"27 Eric More St, Wemabod Estate, Ikeja",+234 705 282 1455,4.9,15,ChIJ30p91YCFOxARDJRuPULImIA,
+Lagos,Lagos,Electrician,Jaywise Electrical Services,"43 Odozi St, Ojodu",+234 813 499 5192,5.0,1,ChIJMXscplP1OxARI3ozuWGEkXU,Google lists state as Ogun; Ojodu is in Lagos
+Lagos,Lagos,Electrician,BOLA ELECTRICAL AND SOLAR ENGINEERING,"16 Kings Ave, Ereke Ave, Ojodu",+234 706 153 1289,5.0,1,ChIJ5R3ruoeTOxARXYyGVwJQSQA,electrical and solar
+Lagos,Lagos,Electrician,Babstech Engineering Services,"Seriki-Aro Ave, Ikeja",+234 812 232 6063,4.9,10,ChIJ65dE8pyTOxARTX3fHc9e1NA,
+Lagos,Lagos,Electrician,Corustar Technological Services,"5 Yaya Abatan St, Ogba, Ikeja",+234 705 739 9297,5.0,22,ChIJJxRkJ_GTOxARu4FP-2PUNmc,
+Lagos,Lagos,Electrician,JB ONEIRO NIGERIA LIMITED,"49 Ogunkoya St, Ikosi Ketu",+234 809 528 6671,,,ChIJcdlSm7uTOxARFe_x7TTfWi4,
+Lagos,Lagos,Electrician,Patrose Advanced Engineering Ltd,"19 Irewole St, Opebi, Ikeja",+234 703 834 7655,5.0,47,ChIJ5RxW4G2TOxARQJTqYTBiNpo,"engineering firm: power, HVAC, security"
+Lagos,Lagos,Electrician,Kobeissi Electrical & Mechanical Engineering Ltd,"Plot 3 Billing Way, Allen, Ikeja",+234 701 504 0654,5.0,2,ChIJAQAAADGSOxAR14nUAHpg4ik,
+Lagos,Lagos,Electrician,JUHARES ASHIRLES ELECTRIC NIGERIA Ltd,"23 Ogundana St, Allen, Ikeja",+234 808 029 3309,,,ChIJ26-ID46TOxARuxXDOxy9LB4,
+Lagos,Lagos,Electrician; Solar installer,Fajmal Electrical And Solar Installation Expert Services,"19 Ikosi Rd, Isheri, Ikeja",+234 703 604 3069,5.0,48,ChIJNQVHCLlbdQYR0SzOc9432MU,
+Lagos,Lagos,Carpenter,M. Ade Furniture and Carpentry Works,"43 Old Ota Rd, Abule Egba",+234 815 584 3142,5.0,1,ChIJPzfXKc6QOxARWRoGtFNTidw,
+Lagos,Lagos,Carpenter,IDEALINNO FURNITURE AND CARPENTRY WORK LTD,"6 Ajibode St, Olowora, Magodo/Isheri",+234 802 957 8691,4.9,59,ChIJw8dARDqTOxARYiGojxxPFjQ,
+Lagos,Lagos,Carpenter,Yomi Carpenters,"7/8 Mafoluku St, Oshodi",+234 807 428 3692,5.0,1,ChIJdz4EJwyOOxARb5BTxguRQTs,
+Lagos,Lagos,Carpenter,Bros D E-Carpenter,"103 Dopemu Rd, Agege",+234 805 153 7995,5.0,1,ChIJeUX2bV-ROxARIK0ClhBh_iQ,
+Lagos,Lagos,Carpenter,Alraz Carpentery And Upholstery Work,"305 Iju Ishaga Rd, Ifako Agege",+234 805 206 5638,5.0,1,ChIJfyFEKKOWOxARuoTjF5R7ZGk,
+Lagos,Lagos,Carpenter,Dada Carpenter Work Shop,"Plot 10 Oluwa Akerele St, Ikeja",+234 705 392 3065,3.7,3,ChIJbRz5TimSOxARbQhjN1dYzjg,a reviewer says he stopped picking calls when an issue came up
+Lagos,Lagos,Carpenter,Woodpecker Concepts Ltd,"2 Owolewa St, off Randle Ave, Surulere",+234 802 312 2760,4.5,26,ChIJfe4OuAKNOxARq-ImXk_wJag,one review alleges non-delivery after a deposit
+Lagos,Lagos,Carpenter,Sabol Capentery & Furnitures,"14 Demurine Rd, Agboyi",+234 808 610 3833,5.0,1,ChIJMUm4O_CSOxARXDLSO_4myoE,
+Lagos,Lagos,Carpenter,Pastor Mfon,"3 Ogunsedine St, Ketu",+234 805 540 1805,5.0,1,ChIJg8oz-fKSOxARBJDYgEvnu98,listed only as a manufacturer; trade unconfirmed
+Lagos,Lagos,Welder,WELDING 360 COMPANY,"28 Iju Rd, Ifako Agege",+234 703 208 0489,4.9,118,ChIJr3feYxSROxAR5mneV_2ZEPw,
+Lagos,Lagos,Welder,Kennah stainless and welding company Limited,"Plot 12 Emmanuel High St, Ojota",+234 802 068 6271,4.5,2,ChIJ_88nIjeTOxAR_9ecM2mGfQQ,
+Lagos,Lagos,Welder,JASOOM WELDING AND CONSTRUCTION SERVICES,"Bank Ln, Town Planning St, Ilupeju",+234 818 927 7179,5.0,1,ChIJOTPjyWCNOxARiOK4aFN5ycM,
+Lagos,Lagos,Welder,Kenny welding construction,"11 Sheyindemi St, Ojodu",+234 816 440 2177,5.0,1,ChIJGX5VsAiTOxAR3TDHr2eak24,Google lists state as Ogun; Ojodu is in Lagos
+Lagos,Lagos,Welder,Seedorf Welding Construction Company,"32 Agunbiade St, Agege",+234 813 205 8000,5.0,1,ChIJ97CaX1SROxARU1hhqmEmEX4,
+Lagos,Lagos,Welder,Happy Brother Steel Work,"18 Jimoh Balogun St, Ikosi Ketu",+234 812 527 7494,5.0,1,ChIJ25SpOVSSOxARnM143iqcptg,
+Lagos,Lagos,Welder,OOJ FABRICATOR & CONSTRUCTION LTD,"Ikorodu Rd, Kosofe",+234 706 771 2213,5.0,14,ChIJfXzlPobpOxARq7RW5eV9ZZo,
+Lagos,Lagos,Welder,Sunbam Welding and Construction,"Expressway 1, Ikosi Ketu",+234 803 263 1959,5.0,1,ChIJfxsImlmTOxARxZrn56A9Ljs,
+Lagos,Lagos,Welder,Omooba Welding Works & Steel Construction Services,"4 Hussey Rd, Yaba",+234 903 335 4765,5.0,1,ChIJHccSWmqNOxAR3-vupg9sgUY,
+Lagos,Lagos,Tailor / Fashion designer,Olajiji Fashion Designer,"30b Ayodeji Otegbola St, Gbagada",+234 805 294 4788,5.0,61,ChIJN-Atv-WNOxARAGpe2hWt0jM,
+Lagos,Lagos,Tailor / Fashion designer,Tailored by Adunni Ltd.,"Store G7, Ikeja Town Square",+234 911 511 4509,4.8,16,ChIJcRNdsTaTOxARpnzI1MNBHBI,
+Lagos,Lagos,Tailor / Fashion designer,Royal Apparels,"18 Emmanuel St, Ojota",+234 813 168 5894,4.8,37,ChIJH7YtfLmTOxARWErV-ArwVJc,
+Lagos,Lagos,Tailor / Fashion designer,VSE Luxury Bridal,"16 Ishola Bello St, Ojodu",+234 703 554 2120,5.0,24,ChIJOcOrsiSTOxARkJ5Nr2OrpB0,
+Lagos,Lagos,Tailor / Fashion designer,A&K Stitches,"15 Anuoluwapo St, Somolu",+234 816 676 7148,4.9,10,ChIJxfhPqtSNOxARvhrbghBTD1s,
+Lagos,Lagos,Tailor / Fashion designer,House of Kings Creations,"11 Olorunlogbon St, Anthony",+234 916 937 3203,4.9,110,ChIJ_euTO1KNOxARU4nxOhyy2e4,
+Lagos,Lagos,Tailor / Fashion designer,Ginika Signature,"71 Victor Fagbemi St, Ipaja",+234 903 534 4094,5.0,22,ChIJ-4z7YOyROxARNqyqP5qILOY,
+Lagos,Lagos,Tailor / Fashion designer,Mieko Michi,"1 Olubiyi Fayinto St, Ifako-Ijaiye",+234 803 206 1325,4.9,43,ChIJgwJSu8qWOxARaCpNh-k2_DY,
+Lagos,Lagos,Solar installer,Powertech Solar Energy Co. Ltd,"23 Bariga Rd, Bariga",+234 803 610 6824,4.8,61,ChIJzfAx5qmNOxARryaGOBnQCz8,also runs solar training
+Lagos,Lagos,Solar installer,SOLARITY PLUS LIMITED,"15 Bajulaye Rd, Somolu",+234 905 390 2950,4.8,241,ChIJRdV3M62NOxARHc1PiDrAnsM,supplier/manufacturer
+Lagos,Lagos,Solar installer,FELICITY SOLAR NIG LTD,"2 Omotayo Omotosho St, Amuwo Odofin",+234 703 051 2628,4.5,96,ChIJgzIiXJCJOxAR8fx2QmwFnWY,supplier; mixed reviews incl. an after-sales complaint
+Lagos,Lagos,Solar installer,Trulight Renewable Energy Ltd,"32B Gateway Cres, Magodo GRA",+234 803 501 5137,4.8,55,ChIJqVVGNAuTOxARMkZ1kY7tvrs,
+Lagos,Lagos,Solar installer,Optimal Techie Solar Energy Company,"16 Olayiwola St, Oregun, Ikeja",+234 707 471 6523,5.0,51,ChIJw1ZS0YqTOxARjcAbJDQ3bXQ,equipment distributor
+Lagos,Lagos,Solar installer,Ecozar Solar Energy,"8 The Providence St, Lekki Phase 1",+234 909 999 9231,5.0,17,ChIJlwnDDzz3OxARg1SQ_fJIdk4,
+Lagos,Lagos,Solar installer,Gennex Technologies,"Plot 32 Adebisi Ogunniyi Cres, Ikate, Lekki",+234 817 946 4060,4.4,89,ChIJLf-Wcj71OxARUmP8wmOyVQA,supplier
+Lagos,Lagos,Solar installer,Ekenet Solar and Inverter Company,"36 Brown St, Oshodi",+234 808 594 2643,4.9,35,ChIJryUyJtKNOxARuZynlghNC5c,
+Lagos,Lagos,Solar installer,Arnergy Solar,"1 Industrial St, Ilupeju",+234 700 228 8888,4.7,48,ChIJaeY6v9SKOxAR6_MF04gVHxY,manufacturer and installer
+Lagos,Lagos,Graphic designer,Iedit Design,"Olota, Ekoro Rd, Abule Egba",+234 903 374 3135,4.9,42,ChIJPxmLgYiROxARQuEYxcFQIh4,
+Lagos,Lagos,Graphic designer,MediaCraft Studio,"81 Lewis St, Lagos Island",+234 706 260 6896,4.8,56,ChIJB438CweLOxARDFMWSYPstgo,web design and marketing
+Lagos,Lagos,Graphic designer,SKY VFX STUDIOS,"7 Olayinka Bamgbose St, Ikeja",+234 803 249 6995,5.0,65,ChIJ8SPq_gqTOxARDR8cM5p7RqI,"training school (graphics, VFX)"
+Lagos,Lagos,Graphic designer,Hazken Digital,"25 Akeju St, Somolu",+234 902 948 0399,5.0,174,ChIJrc-n_xWNOxARlaJtuuODxdg,print and signage; one review disputes their service
+Lagos,Lagos,Graphic designer,Iceberg Creative Print Studio,Somolu,+234 802 309 3704,4.9,107,ChIJvQSY9_iNOxARaGAAOwEgnZA,print and branding
+Lagos,Lagos,Graphic designer,Meshratio Studios,"Kunle Ogedengbe Cres, Ikosi Ketu",+234 814 044 1576,5.0,63,ChIJ8xDPfVSNOxARDXq-8oMf38k,3D animation
+Lagos,Lagos,Graphic designer,Rivasult Creative,"10 Omonubi St, Surulere",+234 816 174 9132,4.9,10,ChIJO5NdE8SBOxAR0RzgIH0bJIo,
+Lagos,Lagos,Graphic designer,Locreative Media LTD,"4 Chief Okonta Cl, Orile Iganmu",+234 810 433 8780,5.0,51,ChIJk5KcCNmNOxARf3vRG8Ilrb8,"design, print, web"
+Lagos,Lagos,Graphic designer,Creative Studios,"14 Dele Adedayo St, Ogudu",+234 909 013 5851,4.5,20,ChIJzaXV_5qSOxARbPLKIotFAvY,advertising agency
+Lagos,Lagos,Graphic designer,Creative joe Studios,"14 Olu Ajisegbede St, Somolu",+234 909 986 8815,4.6,5,ChIJ9-PWr-qNOxARKOnKDL_83hQ,
+Ogun,Iju / Akute (near Lagos),Tailor / Fashion designer,Hatamo Bespoke Fashion,"18 Ogunseye St, Iju, Ajuwon/Akute",+234 813 875 5510,5.0,43,ChIJpWVKXNOVOxARXOCMijuU6EQ,surfaced by the Lagos search
+Ogun,Iju / Akute (near Lagos),Tailor / Fashion designer,ROYAL KLASSIC KOUTURE,"Damry Plaza, Alagbole-Akute Rd, Iju",+234 706 524 4145,4.9,36,ChIJxeD5H6GTOxAR4ONRaeshM24,surfaced by the Lagos search
+FCT,Abuja,Plumber,Hydro-Tech Water Engineering Services Ltd,"Kaura Modern Market, Durumi",+234 701 695 7907,4.8,25,ChIJF-MHGS4LThAROiO9U6nYq5Q,
+FCT,Abuja,Plumber,DreamFlush Plumbing and Integrated Services,"Jahi, Gwarinpa",+234 703 887 0713,4.9,26,ChIJ6RuyUrt1ThARiwc0UJecKEU,
+FCT,Abuja,Plumber,Perfect Plumbing Services,"33 Williams Cres, AMAC",+234 812 803 8418,4.9,13,ChIJC07ZRVwLThARDxiZwybzujk,
+FCT,Abuja,Plumber,EmmyOK plumber,"Kuchingoro, off Airport Rd",+234 810 000 1318,4.9,15,ChIJ7_8gOnpzThARnWw2F4NccoA,
+FCT,Abuja,Plumber,NBKASH PLUMBING SERVICES,"Dape, Gwarinpa",+234 813 161 3208,4.9,58,ChIJWbA_xNd1ThARk8gdgd1wlDs,
+FCT,Abuja,Plumber,Deco mechanical plumbing,"Shop 280, Wuye Ultra Modern Market",+234 816 130 1756,4.9,24,ChIJa3PrzqgLThARY1Gkl5I6c3E,
+FCT,Abuja,Plumber,Plumbing Services Abuja,"22 off Railway Rd, Kubwa",+234 703 833 1270,5.0,1,ChIJZbuuH9oLThARlRF58A1rHtc,
+FCT,Abuja,Plumber,Salos Plumbing Nigeria Limited,"Dakwo, opp. Sunnyvale Estate",+234 803 134 4242,4.9,8,ChIJs4_8oCwNThARjB0av3QwZ-Y,
+FCT,Abuja,Electrician,Sam D Electrical work and maintenance,"45 Gana St, Maitama",+234 803 682 8394,5.0,4,ChIJr0gxzV4LThARTS2eAJQl5hw,
+FCT,Abuja,Electrician,Treeple-T Electrical service,"168 Aminu Kano Cres, Wuse 2",+234 706 797 6334,5.0,3,ChIJ2zpg_1wLThARMKCrgfmnIZk,
+FCT,Abuja,Electrician,DAVNATH ELECTRICAL GLOBAL RESOURCES LIMITED,"Kur Mohammed Ave, Wuse",+234 706 605 9789,5.0,1,ChIJA9FI5DQLThARjZ1nxU8NwBw,
+FCT,Abuja,Electrician,AMBASSADOR MULTILINK ENTERPRISES,"Apo Urban Market, Apo",+234 706 715 9594,5.0,2,ChIJu7UKqgILThARtEVu_ihD3kk,
+FCT,Abuja,Electrician,ABUJA ELECTRICAL CONTRACTORS BWARI,Central Business District,,4.5,2,ChIJa1Ao1NPdTRARfZd8q7JwP2Q,no phone listed
+FCT,Abuja,Electrician,Evans All Electrical Abuja,"Plot 1033 CRD City, Lugbe",+234 810 416 0011,,,ChIJ46apJ3sLThARaO-qjdUgJqY,listed as car repair; no reviews
+FCT,Abuja,Electrician,Kell Electricals Limited,"90 1st Ave, Gwarinpa",+234 814 020 5895,4.4,41,ChIJZe5BVPALThARs3GbqRvSg3M,mixed reviews incl. non-delivery complaints
+FCT,Abuja,Electrician,Focats Electric,"Kabusa, Lokogoma",+234 811 822 8844,5.0,1,ChIJ_cNBQqMLThAR-w8-HG4FEv8,
+FCT,Abuja,Electrician; Solar installer,De Ebumars Innovation Ltd,"Platinum Mega Mall, Jahi, Kado",+234 803 868 1101,4.8,479,ChIJCe0PVAjfTRAR8zcMg3093mE,also CCTV and smart home
+FCT,Abuja,Electrician; Solar installer,OKEH POWER TECH LTD,"World Mart Plaza, Area 1",+234 816 955 4360,4.9,60,ChIJOch7U44NThARMy-sKPJuVZo,industrial solar
+FCT,Abuja,Carpenter,The Carpenter,"Praf Mall, 168 Aminu Kano Cres, Wuse 2",+234 809 924 5000,5.0,8,ChIJ89je3QALThARn6jmiMU_OkY,
+FCT,Abuja,Carpenter,Sagesse De Dieu Limited,"Biggie St, Dei-Dei, Madalla",+234 809 999 9369,5.0,8,ChIJW9h_gcF3ThARMdRfO_OrZxk,
+FCT,Abuja,Carpenter,iVantage Custom Woodwork,Kugbo Furniture Market,+234 906 663 0552,4.9,9,ChIJ6RsklzJzThARkzAnuIm7wWg,
+FCT,Abuja,Carpenter,The Carpenter's House,"Plot 75 K Cl, 1st Ave, Gwarinpa",+234 806 558 8587,5.0,1,ChIJ9X8AiQzfTRARwtizjgQ01AY,
+FCT,Abuja,Carpenter,Lane 7,"13 Fez St, Wuse 2",+234 817 000 5263,4.8,63,ChIJM8TxDbsLThARhAtmGQ_RY90,furniture store; one review complains of no quote follow-up
+FCT,Abuja,Carpenter,Richwood Carpentry Nigeria Ltd,"Suite 317a DBB Plaza, Gwarinpa",+44 7404 380349,5.0,2,ChIJqxFbIix1ThARq5o7Uf8eaGo,UK phone number
+FCT,Abuja,Carpenter,99 Rain Projects,"4 Oshogbo Cl, Garki Area 11",+234 902 636 6660,4.9,24,ChIJ8YCxalILThARpyXfCgs-Un4,furniture
+FCT,Abuja,Carpenter,Helobcapitols Constructions & interior design,"MKK Plaza, Apo, Gudu",+234 813 230 0106,5.0,11,ChIJt9WeQTcNThAR7Az3vsL2QHI,interior design and cabinetry
+FCT,Abuja,Carpenter,Najcarpentry,Deidei Market,+234 708 152 1648,,,ChIJz-YuWEMLThARP9Jt-NmY6tM,
+FCT,Abuja,Carpenter,Furniture City Abuja,"Sunnyvale Junction, Lokogoma",+234 703 722 5977,5.0,2,ChIJ8RndO-cLThAR2cg_gsf3vi4,
+FCT,Abuja,Welder,Designfab Metal Works Ltd.,"Beside Platinum Mega Mall, Katampe Rd",+234 810 414 9992,4.4,14,ChIJfzw0llXZTRARNLdNZY_gYbQ,mixed reviews incl. two fraud complaints
+FCT,Abuja,Welder,Chrisamarich nig ltd,"Dakwo, Lokogoma",+234 803 614 4742,5.0,3,ChIJs0OqPOoNThARJ9vxYovFBD4,
+FCT,Abuja,Welder,YOUNGDON NIG LTD,"Airport Rd, Lugbe",+234 907 716 5579,5.0,5,ChIJcbOkPtVzThARHtu5XVwQqjY,
+FCT,Abuja,Welder,Extreme Fabrication & welding,"Gbesa, Airport Rd",+234 808 722 8747,5.0,4,ChIJ_TMKMgBlThARM6Ber6-mkoA,
+FCT,Abuja,Welder,Godwin Welding Construction,Lugbe,+234 812 116 3001,5.0,5,ChIJXaqiwfELThARkmwKbpSl59s,
+FCT,Abuja,Welder,Emmanuel Welding and fabrications,"Opp. Medimax Hospital, Garki",,4.0,8,ChIJWyeA5u0NThARvDF-_gcXTEs,mixed reviews incl. a dishonesty complaint; no phone listed
+FCT,Abuja,Welder,PAM WELDER,Gwarinpa,+234 806 773 5495,5.0,1,ChIJje4AMwB1ThARq-XTYJSMy_w,
+FCT,Abuja,Welder,Lifemark welding and fabrication Nigeria limited,Galadimawa,+234 901 514 0433,5.0,2,ChIJNcBTXt5zThAR7kZM_QrrAII,
+FCT,Abuja,Welder,ENES Welding and Fabrication,Gosa,+234 708 969 8049,,,ChIJL6oStBFzThAR9_LgzqCcpK0,
+FCT,Abuja,Welder,Iron metal eldad,Utako,+234 818 821 0158,5.0,3,ChIJdxhksrZ1ThARqb-jswGlSzA,
+FCT,Abuja,Tailor / Fashion designer,Iran Femi,"33 Dan Suleiman, Utako",+234 816 574 4968,5.0,60,ChIJlXXEZjhzThARLTukPxVAo8E,
+FCT,Abuja,Tailor / Fashion designer,Tailoredbydimples,"Eden Parks & Gardens, Utako",+234 703 324 9855,5.0,84,ChIJqZ2lRPQLThARJQyVgX38tyI,
+FCT,Abuja,Tailor / Fashion designer,T'trell Fashion House & Academy,Wuye,+234 706 945 7950,5.0,140,ChIJyeVnO1ULThARV2vleWfFvNc,also a fashion academy
+FCT,Abuja,Tailor / Fashion designer,QueenTee Fashion & Beauty Empire,"7B Oka-Akoko St, Garki 2",+234 902 768 3339,4.7,151,ChIJaesutncLThARav2Td8Tal6c,fashion plus salon/spa
+FCT,Abuja,Tailor / Fashion designer,De General's Clothing,"Zone 5, Lugbe",+234 706 942 5303,5.0,37,ChIJOY0fanQLThARLriP3-VLRWA,
+FCT,Abuja,Tailor / Fashion designer,Baafans Fashion and Design Home,"Suite 123C Befs Plaza, Utako",+234 807 614 6528,5.0,1,ChIJA-cVccQLThARt6qMpRTYr2o,
+FCT,Abuja,Tailor / Fashion designer,ST. JOHN PAUL TAILORS,"1st Ave, Gwarinpa",+234 806 672 5016,5.0,1,ChIJh5OE_nF1ThARNpfgl3-oERY,
+FCT,Abuja,Tailor / Fashion designer,Pristê,"9 Ona Cres, Maitama",+234 703 407 0310,4.9,70,ChIJnZFFxF91ThARsY8ARKcTdbw,
+FCT,Abuja,Tailor / Fashion designer,Baldon Clothiers,"14 Agadez Cres, Wuse 2",+234 807 916 0844,4.7,103,ChIJ84MgffsKThARbpdF3sNackg,
+FCT,Abuja,Tailor / Fashion designer,FnB Designs,"House 5, 22 Rd, Wole Soyinka Ave, Gwarinpa",+234 803 540 3660,4.5,90,ChIJh75J-3p1ThARHqYJLdn9KXs,
+FCT,Abuja,Solar installer,BASOL ENERGY SERVICES LIMITED,"Plot 485 Ajose Adeogun St, Utako",+234 703 602 0004,4.8,54,ChIJox6X2OcLThARSacbupQktNk,one review alleges a faulty product
+FCT,Abuja,Solar installer,J&W Solar Company Ltd,"Obum Plaza, Wuse 2",+234 816 787 8543,4.9,50,ChIJj7U3Y-ULThARIz-nxlLwW5w,
+FCT,Abuja,Solar installer,Transenergy Kapital Limited,"Nicon Insurance Plaza, CBD",+234 703 069 4184,5.0,90,ChIJ12U48Q8PThARFmzUynTCcaw,
+FCT,Abuja,Solar installer,JP2 Solar Technologies Limited (Abuja),"Block B029 Mabushi Ultra Modern Market, Jabi",+234 803 390 0832,4.9,21,ChIJp5pzzAZ1ThARBiXCTSEXgnE,supplier
+FCT,Abuja,Solar installer,JRB Solar Investment Ltd.,"Plot 739 Muhammed M. Bello Way, Wuye",+234 906 752 1111,4.9,69,ChIJreRKvNR0ThARwGnMS6Gksck,
+FCT,Abuja,Solar installer,Solar Hub Technologies Ltd,"Banex Plaza, Wuse",+234 913 185 2317,5.0,53,ChIJ_8ebtMgLThARo6OcSLyhnOA,
+FCT,Abuja,Solar installer,Bullageon Energy limited,"Decent Shelter Plaza, Life Camp, Utako",+234 907 107 7777,4.9,32,ChIJR2L0xqcLThARG7KxlmkKBJs,
+FCT,Abuja,Solar installer,TAICO SOLAR COMPANY ABUJA GARKI,"Block D, Garki International Market",+234 706 367 5673,5.0,20,ChIJrRnDjzYNThARm8k_dsVfC44,
+FCT,Abuja,Graphic designer,CNE Graphics Studio,"Plot 482, Kaura",+234 209 291 4673,4.9,14,ChIJbXqOyoALThARkcc3f4gVDnE,design and print
+FCT,Abuja,Graphic designer,ETC DESIGN STUDIO,"Plot 724 Goke Adegoroye Cl, Wuye",+234 806 543 3937,4.4,23,ChIJbSPuNZl1ThARKqflZELnK2M,"design, photo/video, training"
+FCT,Abuja,Graphic designer,Abule Graphics,"Kpeyegyi Junction, Karshi",+234 806 343 9039,5.0,14,ChIJBxfRWtn3OxARPtcRc-ac-vY,web design and digital marketing
+FCT,Abuja,Graphic designer,Xplicitmode,"Freedom Plaza, Oladipo Diya St",+234 907 259 6048,5.0,60,ChIJSQREihUNThAR7T7ZA6KXEnc,"web, branding, digital marketing"
+FCT,Abuja,Graphic designer,UCHETECH STUDIOS,"Kpeyegyi, Karshi",+234 811 683 2891,5.0,1,ChIJ2SFrZmUPThARZ1oAvfS4tS8,
+FCT,Abuja,Graphic designer,Marty Creative Studio,"2 Obuasi Cl, Wuse",+234 907 907 9304,5.0,6,ChIJD9HHNtcLThARamBMlIkiyc8,web design
+FCT,Abuja,Graphic designer,BABATDESIGN LIMITED,"Area 10, Garki",+234 913 336 8807,4.8,70,ChIJwdWNyxF1ThARJuxT6GyyJkw,print and signage
+FCT,Abuja,Graphic designer,MaxiGee,"4 Soba Cl, Garki Area 2",+234 806 207 9550,5.0,40,ChIJ0YGWhIt_ThAReYIyNgY1_r8,cartoon and graphics
+Rivers,Port Harcourt,Plumber,Plumserv Limited,"15 Masa Rd, Abuloma Rd, Fimeama",+234 808 414 1272,4.9,19,ChIJMxK5Mi3NaRAR-97acMCaCLE,
+Rivers,Port Harcourt,Plumber,Pivotal Plumbing Services & Co,"11 Freedom Ave, Aker Rd, Iwofe",+234 913 571 6438,4.5,16,ChIJG1F7RXXPaRARwDP5pdI8-v8,
+Rivers,Port Harcourt,Plumber,G-WIN PLUMBING SERVICE,Nkpelu,+234 814 813 9173,5.0,1,ChIJjRCoAGbRaRARrWUkNY_lGh4,
+Rivers,Port Harcourt,Plumber,DENCO PLUMBING SERVICES,"Mile 3, Rumukalagba",+234 803 446 6291,5.0,1,ChIJl_U8IuLNaRARZGNuitqPth8,
+Rivers,Port Harcourt,Plumber,Brightful plumbing concerns,"Mile 3, Mgbuoba",+234 810 110 2829,4.6,10,ChIJ4dgWWEnPaRARHF8jBnllLD0,
+Rivers,Port Harcourt,Plumber,Danphils plumbing services ltd,"5 Okuru Rd, Trans Amadi",+234 703 968 7994,,,ChIJ6TZ8o3_NaRARG1USFQ0MbVU,
+Rivers,Port Harcourt,Plumber,DE CONFIDENTIAL PLUMBING SERVICE,"14 Wokekoro St, Rumuodara",+234 811 412 1403,,,ChIJ6-BG9xvNaRARz0GTPdlbZj4,
+Rivers,Port Harcourt,Plumber,Vepo Plumbers,"89 Stadium Rd, Rumuomasi",+234 803 934 7059,4.4,7,ChIJj3z6zdHNaRARdyhDsWEkYXk,
+Rivers,Port Harcourt,Plumber; Electrician,D'prime Maintenance Services,"Plot 24 C&C Estate, Okporo Rd, Umudara",+234 802 643 3364,4.8,30,ChIJGW5M9wbNaRARyYDiaubUTsE,
+Rivers,Port Harcourt,Electrician,21st CENTURY ELECTRICALS LIMITED,109 Rumuagholu Rd,+234 813 400 7488,5.0,29,ChIJe_7vT-zRaRARMYB_GVCqJww,
+Rivers,Port Harcourt,Electrician,Bowwood Electrical Company,177 Okporo Rd,+234 907 865 2960,4.7,36,ChIJxWqlMQ8XQhARPsKJexBlY94,
+Rivers,Port Harcourt,Electrician,DAEMASTER Electrical,Rukpokwu,+234 803 598 0005,4.9,7,ChIJAxGalNnRaRARjgVqDAHv71o,
+Rivers,Port Harcourt,Electrician,Kenturkey Electrical Engineering Services,"3 Testimony Ln, Woji",+234 903 131 4782,4.9,12,ChIJTVbCL0jLaRARAopIPUX1Jq8,
+Rivers,Port Harcourt,Electrician,Volt Edge Electrical Services,"Ada-George Rd, Rumuafrikom",+234 812 687 3789,5.0,1,ChIJ_aseZczPaRAR34HQ_aOiJAU,
+Rivers,Port Harcourt,Electrician,FRABEN Electrical Services,"6 Elder Obunezi, Ihunwo St, Nvigwe",+234 806 573 5051,5.0,1,ChIJWSPVVFLNaRARXQ2_AhsFO6A,
+Rivers,Port Harcourt,Electrician,SOLOPET ELECTRICAL ENGINEERING SERVICES,"28 Okporo Rd, Mgbuesilara",+234 903 500 7927,4.0,2,ChIJdesIaD_NaRAR9jEJqftpbH8,
+Rivers,Port Harcourt,Electrician,CUMULUS ELECTRICAL,"35 Mini Ave, Mgbuoba",+234 806 074 6512,5.0,3,ChIJyTtOTOFmyUMR5E50YZSLuL0,
+Rivers,Port Harcourt,Electrician,BENOTEK ENGINEERING,"RIVTAF Golf Estate, Trans Amadi",+234 905 046 2888,5.0,1,ChIJ6xdjE1fNaRAR1IqS45TVrlw,
+Rivers,Port Harcourt,Carpenter,COTECK Furniture,Eliozu Rd,,5.0,1,ChIJATJCMqbTaRARISiD2dLKclw,furniture maker; no phone listed
+Rivers,Port Harcourt,Carpenter,Madera Furniture Nigeria,"75 Okporo Rd, Mgbuesilara",+234 706 099 7286,,,ChIJUy38K2XNaRARm9lvA2fLSkA,furniture maker
+Rivers,Port Harcourt,Carpenter,Coteck Interior Exterior,"11 Collyns Owhonda St, Eagle Island",+234 808 884 4684,5.0,1,ChIJt0MpkIfPaRARkUHjyzxvgCg,listed as general contractor
+Rivers,Port Harcourt,Welder,ZEBAS WELDING AND FABRICATION,"1 Ihunwo St, Woji/Trans Amadi",+234 810 276 7823,5.0,19,ChIJ9Ro0AxfNaRARFK0br2bGj1U,also a welding training workshop
+Rivers,Port Harcourt,Welder,FK METAL AND FABRICATION WORK,"111 Peter Odili Rd, Faga",+234 806 874 9178,5.0,29,ChIJt8fwXvrNaRAR51bmrhI6z5E,
+Rivers,Port Harcourt,Welder,OBIYTEK WELDING & MULTI SERVICE,Rumuowha,+234 708 966 2319,5.0,3,ChIJbwXBNVPTaRARwPKYmgPVYvk,
+Rivers,Port Harcourt,Welder,SIJINUS METALS CONSTRUCTION LTD,"22 Rd, Woji",+234 906 997 8816,5.0,1,ChIJewV275TNaRARKRYH4rxKlFo,
+Rivers,Port Harcourt,Welder,Austine Welding & Fabrication Works,"Ogbogoro Rd, Rumuopirikom",+234 702 547 0497,5.0,1,ChIJO9aYlq_PaRARMAvGXaDToqs,
+Rivers,Port Harcourt,Welder,Alesunny Tech.Enterprises,"Igbo Etche Rd, Rumuokwurusi",+234 703 429 0554,5.0,1,ChIJFya7UdbTaRARfW6yANnBRXU,listed generically; trade unconfirmed
+Rivers,Port Harcourt,Welder,MPW SERVICES,"Rumuibekwe Housing Estate, Obia",+234 811 382 5025,5.0,1,ChIJN92Chs3NaRARCoWCCE1rUTw,listed generically; trade unconfirmed
+Rivers,Port Harcourt,Welder,Accessfab Limited,"43B Ahoada East-West Rd, Aligbolu",+234 812 803 2012,4.9,17,ChIJ9xDGAGLTaRARCcudmGEdGLc,welding training centre
+Rivers,Port Harcourt,Welder,De Efficient Welding/Inspection Services Limited,"East-West Rd, Rumuokoro",+234 806 703 2943,3.3,3,ChIJzzuRh4fNaRAR8MESj2eVFrw,
+Rivers,Port Harcourt,Tailor / Fashion designer,AD CLASSY BESPOKE TAILORING,52 Rumuepirikom/Iwofe Rd,+234 802 033 9511,5.0,14,ChIJA4glKPrPaRAREnZ1qtkSX8E,
+Rivers,Port Harcourt,Tailor / Fashion designer,Deonstyle Couture,"Christy Plaza, Ozuoba",+234 813 921 2558,5.0,33,ChIJE1ovGHPRaRARE3r9vMJLJas,
+Rivers,Port Harcourt,Tailor / Fashion designer,Luka Clothiers LTD,"308 NTA Rd, Mgbuoba",+234 703 771 2633,4.8,6,ChIJs3i9sV0UUUERc8YE3ftt-EI,
+Rivers,Port Harcourt,Tailor / Fashion designer,NK DELIGHT FASHION AND DESIGNING,"Rd 5 Pipeline Rd, Rumuagholu",+234 806 673 1749,4.6,16,ChIJrQCYLcLTaRARtU9SYx7q5ic,
+Rivers,Port Harcourt,Tailor / Fashion designer,Bliss Stitches,"4 Kelechi St, Mgbuesilara",+234 818 726 0954,4.6,18,ChIJ7TV7crPNaRAR3RwZEuO_LXE,also an academy; one review reports slow replies to overseas orders
+Rivers,Port Harcourt,Tailor / Fashion designer,Bellas Fashion Place,"124 NTA Rd, Mgbuoba",,4.3,15,ChIJx-2n8ijOaRAReNFLZkKqPUU,also a tailoring school; no phone listed
+Rivers,Port Harcourt,Tailor / Fashion designer,L'Ecole Unique Fashion Institute,"2 Omachi Ln, Trans Amadi",+234 808 344 9835,4.9,31,ChIJu9roMhrNaRAR8DiWQidK4xk,"fashion school, not a tailor shop"
+Rivers,Port Harcourt,Tailor / Fashion designer,DEHANS The Fashion House,"12 Ede St, Nkpogu",+234 803 542 8718,4.9,14,ChIJAeBFLlfNaRARqLMGHsB-cJI,also a fashion academy
+Rivers,Port Harcourt,Tailor / Fashion designer,Gosh Couture Poppin,"33 Apara Rd, New GRA",+234 912 600 0347,5.0,16,ChIJeTHw19zPaRAROZgf23HQB7k,
+Rivers,Port Harcourt,Tailor / Fashion designer,Sito & Guru Empire,"Royal Havannah Estate, Mgbuosimiri",+234 816 548 2857,4.8,56,ChIJB9Q-eIbRaRAR4ZV3odWlRbM,
+Rivers,Port Harcourt,Solar installer,JP2 Solar Technologies Limited (Port Harcourt),"3 Babbe St, Aba Rd, D-line",+234 803 390 0832,4.9,35,ChIJp6Eb5p3OaRARs3S8snlwq24,supplier; also CCTV
+Rivers,Port Harcourt,Solar installer,Prestige Solar Energy and Electrical Limited,"153 Rukpokwu, Eneka Rd",+234 706 943 7651,5.0,16,ChIJTwDbWbXTaRARaGekvPnxmVA,
+Rivers,Port Harcourt,Solar installer,HakunaSolar,"14 Bekwere Wosu, D-line",+234 803 834 1853,4.9,50,ChIJVepLaKjPaRAR_k5P898tdek,
+Rivers,Port Harcourt,Solar installer,FRANCOSTECH LIMITED,"Geoglad Plaza, Ada-George Rd, Rumuafrikom",+234 803 338 9728,5.0,43,ChIJs03FAO7PaRARhtvvTo1XxkM,
+Rivers,Port Harcourt,Solar installer,Felicity Solar Port Harcourt,"14 Bekwere Wosu St, D-line",+234 803 834 1853,4.8,28,ChIJ4fdGI8HPaRARrz5rEZowyvY,supplier; same address and phone as HakunaSolar
+Rivers,Port Harcourt,Solar installer,JEZ Solar,"5 Epirikom Rd, Rumuepirikom",+234 803 334 3911,4.8,26,ChIJ2Xu1ACrPaRAR8eRyVIetWfo,mixed reviews incl. one complaint
+Rivers,Port Harcourt,Solar installer,Alexoll Energy Solutions,"2 Pipeline Rd, Rumodome",+234 915 768 3237,5.0,8,ChIJPwEii5bTaRARj_NqW-L74vA,
+Rivers,Port Harcourt,Solar installer,Flowcrown Technologies Limited,"12 Tam David West Blvd, Obirikwerre Rd",+234 816 745 0535,4.9,11,ChIJUcT8BvTRaRARxP0Wfy5LCq4,
+Rivers,Port Harcourt,Solar installer,Solar World Electric Technology Limited,"29 Sani Abacha Rd, GRA",+234 903 793 3268,4.7,20,ChIJrV7X9orOaRARPNGpwFvYUwU,
+Rivers,Port Harcourt,Solar installer,ALLOS Solar Energy Iron Steel and Property Management Ltd,"1 SARS Rd, Mandela Estate",+234 901 917 1922,5.0,10,ChIJoWugAm7RaRAR9_vdx7n_9sk,
+Rivers,Port Harcourt,Graphic designer,Eloti Designs,"7 Nathaniel St, Rumuibekwe",+234 803 614 0158,4.8,104,ChIJV1bL2ovaaRARCVFnLBCyCi4,web design and development
+Rivers,Port Harcourt,Graphic designer,Firstcam Creative Studios,"115 Woji Rd, GRA Phase 3",+234 907 661 2408,4.8,15,ChIJE-3MJMfPaRARRl1XlKMaumw,photography studio
+Rivers,Port Harcourt,Graphic designer,D'prime Creative Studios,"Location Jn, Ada-George Rd",+234 816 401 5782,4.9,14,ChIJKT0vyBDRaRARUz9XGJl4kMU,video editing and graphics
+Rivers,Port Harcourt,Graphic designer,DRAFTMAN CONCEPT,3 Rumuaghaolu Rd,+234 807 259 3136,5.0,28,ChIJsVwXH03RaRARuB2R17hsqag,
+Rivers,Port Harcourt,Graphic designer,Orangee Design Studio,"54 NTA Rd, Mgbuoba",+44 7828 704059,5.0,11,ChIJJUViD1nPaRARmtO71ud4lUE,UK phone number
+Rivers,Port Harcourt,Graphic designer,J-Esiti Global Enterprise,"56 Rumuaghaolu Rd, Nkpelu",+234 812 382 2353,4.8,32,ChIJA3OoBnzRaRARZmRzp7dRQnE,
+Rivers,Port Harcourt,Graphic designer,DCS TECH LTD,"Suite 9, 24 Old Aba Rd, Obia",+234 806 003 3322,4.7,81,ChIJTxY_EJrNaRARt5GQowHZjOY,print and merchandise
+Rivers,Port Harcourt,Graphic designer,KelzDesign Studio,Umuibo,+234 812 468 9083,5.0,3,ChIJSfqGhh3O3oURS9X0qllu2L4,
+Rivers,Port Harcourt,Graphic designer,Urbane Media House,"20 Nembe Rd, Obia",+234 815 139 2685,4.9,149,ChIJhRa8Un7NaRARHujt9asc_Js,print
+Rivers,Port Harcourt,Graphic designer,DominicMary Koncept & Services,Okemini Rd,+234 814 280 8777,4.6,19,ChIJRTPK84DRaRARMjKfr3cqZRY,"design, print, ICT training"

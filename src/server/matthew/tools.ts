@@ -16,6 +16,8 @@ import {
   DEFAULT_REQUESTS,
 } from './defaults';
 import { getRegisteredBusinesses } from '../../data/professionalsData';
+import { getDirectoryBusinesses } from '../commerce/store';
+import { nigerianPhonesMatch } from '../../utils/nigerianPhone';
 
 function sanitizeOrFilterTerm(raw: unknown): string {
   return String(raw || '')
@@ -427,22 +429,76 @@ export async function executeMatthewTool(
     case 'get_all_businesses_data': {
       let registeredList: any[] = [];
 
-      // 1. Query safe public_professionals view (anon/authenticated SELECT allowed)
+      // 1. Query safe public_professionals view & approved directory_businesses (anon/authenticated SELECT allowed)
       if (publicClient) {
         try {
-          const { data } = await publicClient
-            .from('public_professionals')
-            .select('id, business_name, industry, specialization, city, state, categories_offered, locations_served, phone_verified, email_verified, identity_verified, business_verified, service_verified, created_at')
-            .limit(50);
-          if (data && data.length > 0) {
-            registeredList = data;
+          const [prosRes, dirRes] = await Promise.all([
+            publicClient
+              .from('public_professionals')
+              .select('id, business_name, industry, specialization, city, state, phone, categories_offered, locations_served, phone_verified, email_verified, identity_verified, business_verified, service_verified, created_at')
+              .limit(1000),
+            publicClient
+              .from('directory_businesses')
+              .select('id, business_name, industry, specialization, city, state, phone, categories_offered, locations_served, is_verified, approval_status, created_at')
+              .eq('approval_status', 'Approved')
+              .limit(1000),
+          ]);
+          if (prosRes.data && prosRes.data.length > 0) {
+            registeredList = [...prosRes.data];
           }
-        } catch {
-          // ignore
+          if (dirRes.data && dirRes.data.length > 0) {
+            for (const row of dirRes.data) {
+              const rowName = (row.business_name || '').trim().toLowerCase();
+              const dup = registeredList.some(
+                (existing) =>
+                  existing.id === row.id ||
+                  (rowName && (existing.business_name || '').trim().toLowerCase() === rowName)
+              );
+              if (!dup) {
+                registeredList.push({
+                  ...row,
+                  business_verified: Boolean(row.is_verified),
+                  phone_verified: Boolean(row.is_verified),
+                });
+              }
+            }
+          }
+        } catch (err) {
+          console.error('[MatthewTools] get_all_businesses_data publicClient query error:', err);
         }
       }
 
-      // 2. Merge client fallback data or base directory
+      // 2. Always merge approved /business listings from server unified commerce store
+      const storeDirs = getDirectoryBusinesses().filter((b) => b.approval_status === 'Approved');
+      for (const dirBiz of storeDirs) {
+        const dirName = (dirBiz.business_name || '').trim().toLowerCase();
+        const dup = registeredList.some(
+          (existing) =>
+            existing.id === dirBiz.id ||
+            (dirBiz.linked_business_id && existing.id === dirBiz.linked_business_id) ||
+            (dirName && (existing.business_name || '').trim().toLowerCase() === dirName)
+        );
+        if (!dup) {
+          registeredList.push({
+            id: dirBiz.id,
+            business_name: dirBiz.business_name,
+            industry: dirBiz.industry,
+            specialization: dirBiz.specialization,
+            city: dirBiz.city,
+            state: dirBiz.state,
+            lga: dirBiz.lga,
+            address: dirBiz.address,
+            phone: dirBiz.phone,
+            categories_offered: dirBiz.categories_offered || [],
+            locations_served: dirBiz.locations_served || [],
+            phone_verified: Boolean(dirBiz.is_verified),
+            business_verified: Boolean(dirBiz.is_verified),
+            created_at: dirBiz.created_at,
+          });
+        }
+      }
+
+      // 3. Merge client fallback data or base directory if still empty
       if (registeredList.length === 0) {
         if (clientFallbackData?.allRegisteredBusinesses && clientFallbackData.allRegisteredBusinesses.length > 0) {
           registeredList = clientFallbackData.allRegisteredBusinesses;
@@ -465,7 +521,10 @@ export async function executeMatthewTool(
         registeredList = registeredList.filter(
           (b) =>
             (b.state || '').toLowerCase().includes(locTarget) ||
-            (b.city || '').toLowerCase().includes(locTarget)
+            (b.city || '').toLowerCase().includes(locTarget) ||
+            (b.lga || '').toLowerCase().includes(locTarget) ||
+            (b.address || '').toLowerCase().includes(locTarget) ||
+            (Array.isArray(b.locations_served) && b.locations_served.some((loc: string) => loc.toLowerCase().includes(locTarget)))
         );
       }
 
@@ -491,6 +550,7 @@ export async function executeMatthewTool(
         locations_breakdown: locationCounts,
         businesses: registeredList.map((b) => ({
           business_name: b.business_name,
+          phone: b.phone,
           industry: b.industry,
           specialization: b.specialization,
           city: b.city,

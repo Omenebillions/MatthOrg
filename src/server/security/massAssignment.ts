@@ -464,6 +464,8 @@ export const ALLOWED_UNIVERSAL_LISTING_FIELDS = [
   'town_city',
   'update_existing',
   'supabase_business_id',
+  'claim_directory_business_id',
+  'claim_token',
   'referral_code',
   'referral_source',
 ] as const;

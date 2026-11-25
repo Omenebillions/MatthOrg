@@ -4283,9 +4283,56 @@ export async function fetchPublicProfessionals(filter?: {
         query = query.or(`business_name.ilike.%${q}%,specialization.ilike.%${q}%,industry.ilike.%${q}%`);
       }
 
-      const { data, error } = await query;
-      if (!error && data && data.length > 0) {
-        rows = data;
+      const [prosRes, dirRes] = await Promise.all([
+        query,
+        client
+          .from('directory_businesses')
+          .select('*')
+          .eq('approval_status', 'Approved')
+          .limit(1000),
+      ]);
+
+      if (!prosRes.error && prosRes.data && prosRes.data.length > 0) {
+        rows = prosRes.data;
+      }
+
+      if (!dirRes.error && dirRes.data && dirRes.data.length > 0) {
+        for (const d of dirRes.data) {
+          const dName = String(d.business_name || '').trim().toLowerCase();
+          const dup = rows.some(
+            (r) =>
+              r.id === d.id ||
+              (d.linked_business_id && r.id === d.linked_business_id) ||
+              (dName && (r.business_name || '').trim().toLowerCase() === dName)
+          );
+          if (!dup) {
+            rows.push({
+              id: d.id,
+              business_name: d.business_name || '',
+              owner_full_name: d.metadata?.owner_full_name || d.owner_full_name || '',
+              industry: d.industry || '',
+              specialization: d.specialization || '',
+              tagline: d.tagline || d.description || '',
+              logo: '',
+              phone: d.phone || '',
+              whatsapp: d.whatsapp || d.phone || '',
+              email: d.email || '',
+              address: d.address || '',
+              state: d.state || '',
+              lga: d.metadata?.lga || d.lga || '',
+              city: d.city || '',
+              categories_offered: d.categories_offered || [],
+              locations_served: d.locations_served || [],
+              is_public: true,
+              phone_verified: Boolean(d.is_verified),
+              email_verified: false,
+              identity_verified: Boolean(d.is_verified),
+              business_verified: Boolean(d.is_verified),
+              service_verified: Boolean(d.is_verified),
+              created_at: d.created_at || new Date().toISOString(),
+            });
+          }
+        }
       }
     }
 
@@ -4338,11 +4385,11 @@ export async function fetchPublicProfessionals(filter?: {
           const json = await res.json();
           if (Array.isArray(json?.data)) {
             json.data.forEach((pro: PublicProfessionalProfile) => {
+              const proName = (pro.business_name || '').trim().toLowerCase();
               const dup = list.some(
                 (p) =>
                   p.id === pro.id ||
-                  (pro.phone && p.phone && nigerianPhonesMatch(p.phone, pro.phone)) ||
-                  (!pro.phone && p.business_name && p.business_name.toLowerCase() === pro.business_name.toLowerCase())
+                  (proName && p.business_name && p.business_name.trim().toLowerCase() === proName)
               );
               if (!dup) {
                 list.push(pro);
@@ -4529,12 +4576,16 @@ export interface UniversalBusinessListingInput {
   lga: string;
   townCity: string;
   updateExisting?: boolean;
+  claimDirectoryBusinessId?: string;
+  claimToken?: string;
   referralCode?: string;
 }
 
 export interface UniversalBusinessListingResult {
-  status: 'created' | 'updated' | 'duplicate_owned' | 'duplicate_conflict' | 'auth_required';
+  status: 'created' | 'created_unclaimed' | 'updated' | 'duplicate_owned' | 'duplicate_conflict' | 'auth_required';
   message: string;
+  requiresSignupToUnlockBenefits?: boolean;
+  claimToken?: string;
   businessProfile?: BusinessProfile;
   directoryBusiness?: DirectoryBusiness;
   existingListing?: Partial<DirectoryBusiness> & { profession?: string; town_city?: string };
@@ -4552,20 +4603,15 @@ export interface UniversalBusinessListingResult {
 
 /**
  * Registers or updates any Nigerian business, artisan, freelancer, independent professional,
- * or product seller via /business, persisting authoritatively into Supabase PostgreSQL
- * (`public.businesses` + `public.business_members`) and syncing discovery & referrals.
+ * or product seller via /business.
+ * - Unauthenticated submissions go straight into the server/Supabase directory database so Matthew AI can read them immediately,
+ *   returning a confirmation prompting the user to sign up & update their profile for full trust & discovery benefits.
+ * - Authenticated submissions persist authoritatively into Supabase PostgreSQL (`public.businesses` + `public.business_members`)
+ *   and link/claim any matching directory entry & referral attribution.
  */
 export async function submitUniversalBusinessListing(
   input: UniversalBusinessListingInput
 ): Promise<UniversalBusinessListingResult> {
-  const session = await getCurrentSession();
-  if (!session || !session.user) {
-    return {
-      status: 'auth_required',
-      message: 'Please sign in or verify your phone number to publish your listing.',
-    };
-  }
-
   const phoneCheck = validateAndNormalizeNigerianPhone(input.phone);
   if (!phoneCheck.isValid) {
     throw new Error(phoneCheck.error || 'Please enter a valid Nigerian phone number.');
@@ -4579,8 +4625,104 @@ export async function submitUniversalBusinessListing(
   const displayName = cleanBusinessName || cleanFullName;
   const cleanProfession = input.profession.trim();
   const inferred = inferIndustryAndTypeForProfession(cleanProfession);
+  const pendingRef = getPendingReferral();
+  const effectiveReferralCode = normalizeReferralCode(input.referralCode || pendingRef?.code);
 
-  // 1. Ensure user owns a persisted Supabase businesses record + business_members row
+  const session = await getCurrentSession();
+
+  // Direct public submission path (no account required first — saved straight to DB for Matthew AI)
+  if (!session || !session.user) {
+    const publicRes = await fetch('/api/business-listings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        business_name: cleanBusinessName,
+        full_name: cleanFullName,
+        profession: cleanProfession,
+        industry: inferred.industry,
+        provider_type: inferred.providerType,
+        phone: phoneCheck.normalizedE164,
+        state: canonicalState,
+        lga: cleanLga,
+        town_city: cleanTown,
+        ...(effectiveReferralCode
+          ? {
+              referral_code: effectiveReferralCode,
+              referral_source: input.referralCode ? 'business_form' : pendingRef?.source || 'link',
+            }
+          : {}),
+      }),
+    });
+
+    const publicPayload = await publicRes.json().catch(() => ({}));
+
+    if (publicRes.status === 409 && publicPayload?.duplicate) {
+      return {
+        status: 'duplicate_conflict',
+        message:
+          publicPayload.error ||
+          'This Nigerian phone number is already associated with an existing listing on MatthOrg.',
+        existingListing: publicPayload.existingListing,
+      };
+    }
+
+    if (!publicRes.ok) {
+      throw new Error(
+        publicPayload?.error || 'Could not save your listing right now. Please check your details and try again.'
+      );
+    }
+
+    const dirData = publicPayload?.data as DirectoryBusiness | undefined;
+    const locationsServed = Array.from(
+      new Set([cleanTown, cleanLga, `${cleanTown}, ${cleanLga}`, canonicalState].filter(Boolean))
+    );
+    const localProfile: BusinessProfile = {
+      id: dirData?.id || `dir_${Date.now()}`,
+      user_id: '',
+      business_name: displayName,
+      owner_full_name: cleanFullName,
+      industry: inferred.industry,
+      specialization: cleanProfession,
+      tagline: `${cleanProfession} in ${cleanTown}, ${cleanLga} (${canonicalState})`,
+      logo: '',
+      phone: phoneCheck.normalizedE164,
+      whatsapp: phoneCheck.normalizedE164,
+      email: '',
+      address: `${cleanTown}, ${cleanLga}, ${canonicalState}`,
+      state: canonicalState,
+      lga: cleanLga,
+      city: cleanTown,
+      country: 'Nigeria',
+      currency: '₦',
+      tax_name: 'VAT',
+      tax_rate: 7.5,
+      terms: '',
+      locations_served: locationsServed,
+      categories_offered: Array.from(new Set([cleanProfession, inferred.industry])),
+      is_public: true,
+      payment_details: {
+        bank_name: '',
+        account_name: '',
+        account_number: '',
+        notes: '',
+      },
+    };
+
+    registerBusinessToDirectory(localProfile);
+    autoCreateServicesFromBusinessProfile(localProfile);
+
+    return {
+      status: 'created_unclaimed',
+      requiresSignupToUnlockBenefits: true,
+      claimToken: typeof publicPayload?.claimToken === 'string' ? publicPayload.claimToken : undefined,
+      message:
+        publicPayload?.message ||
+        'Your business information has been saved straight to our database so Matthew can read it.',
+      directoryBusiness: dirData,
+    };
+  }
+
+  // 1. Authenticated flow: ensure user owns a persisted Supabase businesses record + business_members row
   const provisioned = await getOrCreateUserBusiness(session.user.id, session.user.email || null);
   const supaBizId = provisioned?.business?.id;
   if (!supaBizId) {
@@ -4609,10 +4751,7 @@ export async function submitUniversalBusinessListing(
     }
   }
 
-  const pendingRef = getPendingReferral();
-  const effectiveReferralCode = normalizeReferralCode(input.referralCode || pendingRef?.code);
-
-  // 3. Submit allowlisted fields to server (/api/business-listings) for duplicate checks & index sync
+  // 3. Submit allowlisted fields to server (/api/business-listings) for duplicate checks, claiming & index sync
   const response = await authFetch('/api/business-listings', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -4628,6 +4767,10 @@ export async function submitUniversalBusinessListing(
       town_city: cleanTown,
       update_existing: Boolean(input.updateExisting),
       supabase_business_id: supaBizId,
+      ...(input.claimDirectoryBusinessId
+        ? { claim_directory_business_id: input.claimDirectoryBusinessId }
+        : {}),
+      ...(input.claimToken ? { claim_token: input.claimToken } : {}),
       ...(effectiveReferralCode
         ? {
             referral_code: effectiveReferralCode,

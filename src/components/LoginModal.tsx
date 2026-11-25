@@ -31,6 +31,7 @@ interface LoginModalProps {
   initialBusinessName?: string;
   initialFullName?: string;
   allowOptionalBusinessName?: boolean;
+  claimSubmittedListing?: boolean;
   continuationNotice?: string;
   initialPhone?: string;
   initialTrade?: string;
@@ -48,6 +49,7 @@ export function LoginModal({
   initialBusinessName,
   initialFullName,
   allowOptionalBusinessName = false,
+  claimSubmittedListing = false,
   continuationNotice,
   initialPhone,
   initialTrade,
@@ -520,7 +522,9 @@ export function LoginModal({
           {continuationNotice && (
             <div className="mb-4 p-4 rounded-2xl bg-[#F4F7FB] border border-[#CBD5E1] text-[#0B192C] text-[14px] space-y-1.5">
               <strong className="font-heading block font-bold text-[#0B192C]">
-                Publish Your MatthOrg Listing
+                {claimSubmittedListing
+                  ? 'Claim & Update Your MatthOrg Profile'
+                  : 'Publish Your MatthOrg Listing'}
               </strong>
               <p className="text-[#475569] leading-relaxed">{continuationNotice}</p>
               <div className="pt-1 text-[13px] font-semibold text-[#0B192C]">
@@ -639,7 +643,9 @@ export function LoginModal({
                       <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       <span>
                         {isFromBusinessFunnel
-                          ? 'Verify & Publish My Listing'
+                          ? claimSubmittedListing
+                            ? 'Verify & Claim My Profile'
+                            : 'Verify & Publish My Listing'
                           : isLogin
                           ? 'Verify & Sign In'
                           : 'Verify & Enter Workspace'}
@@ -800,7 +806,9 @@ export function LoginModal({
                       <Phone className="w-4 h-4 text-cyan-400" />
                       <span>
                         {isFromBusinessFunnel
-                          ? 'Send Verification Code & Publish'
+                          ? claimSubmittedListing
+                            ? 'Send Verification Code & Claim'
+                            : 'Send Verification Code & Publish'
                           : isLogin
                           ? 'Send SMS Login Code'
                           : 'Send SMS Verification Code'}
@@ -983,7 +991,9 @@ export function LoginModal({
                     <Sparkles className="w-4 h-4 text-cyan-400" />
                     <span>
                       {isFromBusinessFunnel
-                        ? 'Create Account & Publish Listing'
+                        ? claimSubmittedListing
+                          ? 'Create Account & Update Profile'
+                          : 'Create Account & Publish Listing'
                         : 'Register & Enter Workspace'}
                     </span>
                   </>

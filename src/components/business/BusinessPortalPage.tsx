@@ -18,6 +18,8 @@ import {
   Phone,
   Plus,
   Search,
+  Settings,
+  ShieldCheck,
   Sparkles,
   Target,
   TrendingUp,
@@ -67,6 +69,10 @@ export interface PendingBusinessListingDraft {
   lga: string;
   townCity: string;
   referralCode?: string;
+  directoryBusinessId?: string;
+  claimToken?: string;
+  submittedToDirectory?: boolean;
+  openProfileAfterClaim?: boolean;
   savedAt: string;
 }
 
@@ -82,8 +88,9 @@ interface BusinessPortalPageProps {
   onPromptLogin: () => void;
   onPromptRegister: () => void;
   onEnterWorkspace: () => void;
+  onOpenProfileSettings?: () => void;
   onSubmitListing: (input: UniversalBusinessListingInput) => Promise<UniversalBusinessListingResult>;
-  onRequestAuthToPublish: (draft: PendingBusinessListingDraft) => void;
+  onRequestAuthToPublish: (draft: PendingBusinessListingDraft, mode?: 'register' | 'login') => void;
   onSelectArticle: (slug: string) => void;
   onOpenAllGuides: () => void;
   onClearExternalResult?: () => void;
@@ -110,6 +117,7 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
   onPromptLogin,
   onPromptRegister,
   onEnterWorkspace,
+  onOpenProfileSettings,
   onSubmitListing,
   onRequestAuthToPublish,
   onSelectArticle,
@@ -166,7 +174,7 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
       const raw = localStorage.getItem(PENDING_BUSINESS_LISTING_STORAGE_KEY);
       if (raw) {
         const parsed: PendingBusinessListingDraft = JSON.parse(raw);
-        if (parsed) {
+        if (parsed && !parsed.submittedToDirectory) {
           setBusinessName(parsed.businessName || '');
           setFullName(parsed.fullName || '');
           setProfession(parsed.profession || '');
@@ -343,17 +351,6 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
       savedAt: new Date().toISOString(),
     };
 
-    if (!isAuthenticated) {
-      try {
-        localStorage.setItem(PENDING_BUSINESS_LISTING_STORAGE_KEY, JSON.stringify(draft));
-      } catch {
-        // Ignore storage error
-      }
-      setHasSavedDraftBanner(true);
-      onRequestAuthToPublish(draft);
-      return;
-    }
-
     setIsSubmitting(true);
     try {
       const result = await onSubmitListing({
@@ -361,18 +358,25 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
         updateExisting,
       });
 
-      if (result.status === 'auth_required') {
-        try {
-          localStorage.setItem(PENDING_BUSINESS_LISTING_STORAGE_KEY, JSON.stringify(draft));
-        } catch {
-          // ignore
-        }
-        onRequestAuthToPublish(draft);
+      if (result.status === 'duplicate_conflict') {
+        setSubmitError(result.message);
+        setListingResult(result);
         return;
       }
 
-      if (result.status === 'duplicate_conflict') {
-        setSubmitError(result.message);
+      if (result.status === 'created_unclaimed') {
+        const submittedDraft: PendingBusinessListingDraft = {
+          ...draft,
+          directoryBusinessId: result.directoryBusiness?.id,
+          claimToken: result.claimToken,
+          submittedToDirectory: true,
+        };
+        try {
+          localStorage.setItem(PENDING_BUSINESS_LISTING_STORAGE_KEY, JSON.stringify(submittedDraft));
+        } catch {
+          // ignore
+        }
+        setHasSavedDraftBanner(false);
         setListingResult(result);
         return;
       }
@@ -576,8 +580,10 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
           {/* Right Column: Clean 7-Field Collection Form Card */}
           <div className="lg:col-span-7">
             <div className="rounded-2xl bg-[#FAFBFD] border border-[#E5E9F0] p-5 sm:p-8 shadow-xs">
-              {/* Success / Updated Confirmation State */}
-              {(listingResult?.status === 'created' || listingResult?.status === 'updated') ? (
+              {/* Confirmation State: Unclaimed direct DB submission OR Authenticated Create/Update */}
+              {(listingResult?.status === 'created_unclaimed' ||
+                listingResult?.status === 'created' ||
+                listingResult?.status === 'updated') ? (
                 <div className="space-y-6">
                   <div className="flex items-start gap-3.5">
                     <div className="w-11 h-11 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
@@ -590,115 +596,279 @@ export const BusinessPortalPage: React.FC<BusinessPortalPageProps> = ({
                           : 'You Are Listed on MatthOrg'}
                       </h2>
                       <p className="text-[15px] text-[#475569] mt-1 leading-relaxed">
-                        {listingResult.message}
+                        {listingResult.status === 'created_unclaimed'
+                          ? 'Your business details have been saved straight to our database so Matthew can read them and match you with customers.'
+                          : listingResult.message}
                       </p>
                     </div>
                   </div>
 
                   <div className="rounded-xl bg-white border border-[#E5E9F0] p-5 space-y-3 text-[15px]">
                     <div className="font-heading text-lg font-bold text-[#0B192C]">
-                      {businessName.trim() || fullName.trim()}
+                      {businessName.trim() || fullName.trim() || listingResult.directoryBusiness?.business_name}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[14px] text-[#475569]">
                       <div>
                         <span className="block text-[13px] font-semibold text-[#64748B]">Contact Person</span>
-                        <span className="font-semibold text-[#0B192C]">{fullName.trim()}</span>
+                        <span className="font-semibold text-[#0B192C]">
+                          {fullName.trim() || listingResult.directoryBusiness?.owner_full_name}
+                        </span>
                       </div>
                       <div>
                         <span className="block text-[13px] font-semibold text-[#64748B]">Profession / Activity</span>
-                        <span className="font-semibold text-[#0B192C]">{profession.trim()}</span>
+                        <span className="font-semibold text-[#0B192C]">
+                          {profession.trim() || listingResult.directoryBusiness?.specialization}
+                        </span>
                       </div>
                       <div>
                         <span className="block text-[13px] font-semibold text-[#64748B]">Phone Number</span>
                         <span className="font-semibold text-[#0B192C]">
-                          {phoneAnalysis?.isValid ? phoneAnalysis.display : phone}
+                          {phoneAnalysis?.isValid
+                            ? phoneAnalysis.display
+                            : phone || listingResult.directoryBusiness?.phone}
                         </span>
                       </div>
                       <div>
                         <span className="block text-[13px] font-semibold text-[#64748B]">Location</span>
                         <span className="font-semibold text-[#0B192C]">
-                          {townCity.trim()}, {lga}, {selectedState}
+                          {[
+                            townCity.trim() || listingResult.directoryBusiness?.city,
+                            lga || listingResult.directoryBusiness?.lga,
+                            selectedState || listingResult.directoryBusiness?.state,
+                          ]
+                            .filter(Boolean)
+                            .join(', ')}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  {listingResult.referralAttribution?.success && (
-                    <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-[14px] text-emerald-900 flex items-center gap-2">
-                      <Gift className="w-4 h-4 text-emerald-700 shrink-0" />
-                      <span>
-                        Referral attributed to{' '}
-                        <strong>{listingResult.referralAttribution.referrer_name || listingResult.referralAttribution.referral_code}</strong>.
-                      </span>
-                    </div>
-                  )}
-
-                  {listingResult.referralCode && (
-                    <div className="rounded-xl bg-[#F4F7FB] border border-[#E5E9F0] p-4 space-y-2.5">
-                      <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <div className="flex items-center gap-2">
-                          <Gift className="w-4 h-4 text-[#3D74D9]" />
-                          <span className="font-heading font-bold text-[15px] text-[#0B192C]">
-                            Your Referral Code: <span className="font-mono text-[#3D74D9]">{listingResult.referralCode}</span>
+                  {listingResult.status === 'created_unclaimed' ? (
+                    <>
+                      {/* Sign Up & Profile Update Benefits Callout */}
+                      <div className="rounded-2xl bg-[#0B192C] text-white p-5 sm:p-6 space-y-4">
+                        <div className="space-y-1.5">
+                          <span className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wider text-emerald-300">
+                            <ShieldCheck className="w-4 h-4" />
+                            <span>Unlock More Benefits</span>
                           </span>
+                          <h3 className="font-heading text-xl font-extrabold leading-snug">
+                            Get more customers to see you and trust you — sign up and update your profile
+                          </h3>
+                          <p className="text-[14px] text-[#CBD5E1] leading-relaxed">
+                            Your listing is already in our database. Create your free MatthOrg account in seconds to claim it and unlock full visibility:
+                          </p>
                         </div>
+
+                        <ul className="space-y-2.5 text-[14px] text-[#E2E8F0]">
+                          {[
+                            'Get a verified profile badge so buyers trust your business and choose you faster',
+                            'Update your profile anytime with photos, service descriptions, pricing & working hours',
+                            'Rank higher when customers ask Matthew for professionals in your area',
+                            'Receive direct customer inquiries, send quotes & invoices, and get your referral link',
+                          ].map((benefit) => (
+                            <li key={benefit} className="flex items-start gap-2.5">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const cleanPhone = validateAndNormalizeNigerianPhone(phone).normalizedE164 || phone;
+                              const cleanRefCode = normalizeReferralCode(referralCode);
+                              const claimDraft: PendingBusinessListingDraft = {
+                                businessName: businessName.trim(),
+                                fullName: fullName.trim(),
+                                profession: profession.trim(),
+                                phone: cleanPhone,
+                                state: selectedState,
+                                lga: lga.trim(),
+                                townCity: townCity.trim(),
+                                ...(cleanRefCode ? { referralCode: cleanRefCode } : {}),
+                                directoryBusinessId: listingResult.directoryBusiness?.id,
+                                claimToken: listingResult.claimToken,
+                                submittedToDirectory: true,
+                                openProfileAfterClaim: true,
+                                savedAt: new Date().toISOString(),
+                              };
+                              try {
+                                localStorage.setItem(PENDING_BUSINESS_LISTING_STORAGE_KEY, JSON.stringify(claimDraft));
+                              } catch {
+                                // ignore
+                              }
+                              onRequestAuthToPublish(claimDraft, 'register');
+                            }}
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-[#0B192C] font-heading font-extrabold text-[16px] transition cursor-pointer whitespace-nowrap"
+                          >
+                            <UserPlus className="w-4 h-4" />
+                            <span>Sign Up &amp; Update Profile</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const cleanPhone = validateAndNormalizeNigerianPhone(phone).normalizedE164 || phone;
+                              const claimDraft: PendingBusinessListingDraft = {
+                                businessName: businessName.trim(),
+                                fullName: fullName.trim(),
+                                profession: profession.trim(),
+                                phone: cleanPhone,
+                                state: selectedState,
+                                lga: lga.trim(),
+                                townCity: townCity.trim(),
+                                directoryBusinessId: listingResult.directoryBusiness?.id,
+                                claimToken: listingResult.claimToken,
+                                submittedToDirectory: true,
+                                openProfileAfterClaim: true,
+                                savedAt: new Date().toISOString(),
+                              };
+                              try {
+                                localStorage.setItem(PENDING_BUSINESS_LISTING_STORAGE_KEY, JSON.stringify(claimDraft));
+                              } catch {
+                                // ignore
+                              }
+                              onRequestAuthToPublish(claimDraft, 'login');
+                            }}
+                            className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-white/25 bg-white/10 hover:bg-white/15 text-white text-[15px] font-semibold transition cursor-pointer whitespace-nowrap"
+                          >
+                            <LogIn className="w-4 h-4" />
+                            <span>Sign In</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <button
+                          type="button"
+                          onClick={onNavigateHome}
+                          className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#0B192C] text-[15px] font-semibold transition cursor-pointer whitespace-nowrap"
+                        >
+                          <span>Back to Marketplace</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
                         <button
                           type="button"
                           onClick={() => {
-                            const url = getShareableReferralUrl(listingResult.referralCode);
-                            navigator.clipboard?.writeText(url).catch(() => {});
-                            setCopiedOwnReferral(true);
-                            setTimeout(() => setCopiedOwnReferral(false), 2200);
+                            try {
+                              localStorage.removeItem(PENDING_BUSINESS_LISTING_STORAGE_KEY);
+                            } catch {
+                              // ignore
+                            }
+                            setBusinessName('');
+                            setFullName('');
+                            setProfession('');
+                            setPhone('');
+                            setSelectedState('');
+                            setLga('');
+                            setTownCity('');
+                            setSubmitError(null);
+                            setListingResult(null);
+                            onClearExternalResult?.();
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#CBD5E1] text-[13px] font-bold text-[#0B192C] hover:bg-[#F8FAFC] cursor-pointer whitespace-nowrap"
+                          className="px-4 py-3 rounded-xl text-[14px] font-semibold text-[#5B6D85] hover:text-[#0B192C] cursor-pointer whitespace-nowrap"
                         >
-                          {copiedOwnReferral ? (
-                            <>
-                              <Check className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>Invite Link Copied</span>
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3.5 h-3.5" />
-                              <span>Copy Invite Link</span>
-                            </>
-                          )}
+                          List Another Business
                         </button>
                       </div>
-                      <p className="text-[13px] text-[#5B6D85]">
-                        Invite other artisans, sellers, and service providers to list on MatthOrg using your personal link.
-                      </p>
-                    </div>
-                  )}
+                    </>
+                  ) : (
+                    <>
+                      {listingResult.referralAttribution?.success && (
+                        <div className="rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3 text-[14px] text-emerald-900 flex items-center gap-2">
+                          <Gift className="w-4 h-4 text-emerald-700 shrink-0" />
+                          <span>
+                            Referral attributed to{' '}
+                            <strong>{listingResult.referralAttribution.referrer_name || listingResult.referralAttribution.referral_code}</strong>.
+                          </span>
+                        </div>
+                      )}
 
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <button
-                      type="button"
-                      onClick={onEnterWorkspace}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0B192C] hover:bg-[#1E3E62] text-white text-[16px] font-bold transition cursor-pointer whitespace-nowrap"
-                    >
-                      <LayoutDashboard className="w-4 h-4" />
-                      <span>Open Workspace</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={onNavigateHome}
-                      className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#0B192C] text-[16px] font-semibold transition cursor-pointer whitespace-nowrap"
-                    >
-                      <span>View Marketplace</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setListingResult(null);
-                        onClearExternalResult?.();
-                      }}
-                      className="px-4 py-3.5 rounded-xl text-[15px] font-semibold text-[#5B6D85] hover:text-[#0B192C] cursor-pointer whitespace-nowrap"
-                    >
-                      Edit Details
-                    </button>
-                  </div>
+                      {listingResult.referralCode && (
+                        <div className="rounded-xl bg-[#F4F7FB] border border-[#E5E9F0] p-4 space-y-2.5">
+                          <div className="flex items-center justify-between gap-2 flex-wrap">
+                            <div className="flex items-center gap-2">
+                              <Gift className="w-4 h-4 text-[#3D74D9]" />
+                              <span className="font-heading font-bold text-[15px] text-[#0B192C]">
+                                Your Referral Code: <span className="font-mono text-[#3D74D9]">{listingResult.referralCode}</span>
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const url = getShareableReferralUrl(listingResult.referralCode);
+                                navigator.clipboard?.writeText(url).catch(() => {});
+                                setCopiedOwnReferral(true);
+                                setTimeout(() => setCopiedOwnReferral(false), 2200);
+                              }}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-[#CBD5E1] text-[13px] font-bold text-[#0B192C] hover:bg-[#F8FAFC] cursor-pointer whitespace-nowrap"
+                            >
+                              {copiedOwnReferral ? (
+                                <>
+                                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                  <span>Invite Link Copied</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="w-3.5 h-3.5" />
+                                  <span>Copy Invite Link</span>
+                                </>
+                              )}
+                            </button>
+                          </div>
+                          <p className="text-[13px] text-[#5B6D85]">
+                            Invite other artisans, sellers, and service providers to list on MatthOrg using your personal link.
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+                        {onOpenProfileSettings && (
+                          <button
+                            type="button"
+                            onClick={onOpenProfileSettings}
+                            className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0B192C] hover:bg-[#1E3E62] text-white text-[16px] font-bold transition cursor-pointer whitespace-nowrap"
+                          >
+                            <Settings className="w-4 h-4" />
+                            <span>Update My Profile</span>
+                          </button>
+                        )}
+                        <button
+                          type="button"
+                          onClick={onEnterWorkspace}
+                          className={`flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-[16px] font-bold transition cursor-pointer whitespace-nowrap ${
+                            onOpenProfileSettings
+                              ? 'border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#0B192C]'
+                              : 'bg-[#0B192C] hover:bg-[#1E3E62] text-white'
+                          }`}
+                        >
+                          <LayoutDashboard className="w-4 h-4" />
+                          <span>Open Workspace</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={onNavigateHome}
+                          className="inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl border border-[#CBD5E1] bg-white hover:bg-[#F8FAFC] text-[#0B192C] text-[15px] font-semibold transition cursor-pointer whitespace-nowrap"
+                        >
+                          <span>Marketplace</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setListingResult(null);
+                            onClearExternalResult?.();
+                          }}
+                          className="px-4 py-3.5 rounded-xl text-[14px] font-semibold text-[#5B6D85] hover:text-[#0B192C] cursor-pointer whitespace-nowrap"
+                        >
+                          Edit Details
+                        </button>
+                      </div>
+                    </>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} noValidate className="space-y-5">

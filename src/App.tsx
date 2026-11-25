@@ -856,6 +856,9 @@ export function App() {
       state: parsed.state,
       lga: parsed.lga,
       townCity: parsed.townCity,
+      updateExisting: Boolean(parsed.submittedToDirectory),
+      claimDirectoryBusinessId: parsed.directoryBusinessId,
+      claimToken: parsed.claimToken,
       referralCode: parsed.referralCode,
     })
       .then((result) => {
@@ -871,6 +874,13 @@ export function App() {
         setBusinessPortalResult(result);
         if (result.status === 'duplicate_conflict') {
           setBusinessPortalError(result.message);
+        } else if (
+          parsed?.openProfileAfterClaim &&
+          (result.status === 'created' || result.status === 'updated')
+        ) {
+          setCurrentRoute({ view: 'app' });
+          setCurrentView('app');
+          setIsSettingsOpen(true);
         }
       })
       .catch((err: any) => {
@@ -2283,10 +2293,15 @@ export function App() {
             setCurrentRoute({ view: 'app' });
             setCurrentView('app');
           }}
+          onOpenProfileSettings={() => {
+            setCurrentRoute({ view: 'app' });
+            setCurrentView('app');
+            setIsSettingsOpen(true);
+          }}
           onSubmitListing={handleUniversalListingSubmit}
-          onRequestAuthToPublish={(draft) => {
+          onRequestAuthToPublish={(draft, mode = 'register') => {
             setPendingListingDraft(draft);
-            setLoginModalMode('register');
+            setLoginModalMode(mode);
             setIsLoginModalOpen(true);
           }}
           onSelectArticle={(slug) => navigateToBlog(slug)}
@@ -2299,9 +2314,12 @@ export function App() {
           initialBusinessName={pendingListingDraft?.businessName || claimArtisanDetails?.artisanName}
           initialFullName={pendingListingDraft?.fullName}
           allowOptionalBusinessName={Boolean(pendingListingDraft)}
+          claimSubmittedListing={Boolean(pendingListingDraft?.submittedToDirectory)}
           continuationNotice={
             pendingListingDraft
-              ? `Create an account or sign in to publish your listing (${pendingListingDraft.profession} in ${pendingListingDraft.townCity}, ${pendingListingDraft.state}). All 7 details you entered are preserved.`
+              ? pendingListingDraft.submittedToDirectory
+                ? `Your listing (${pendingListingDraft.profession} in ${pendingListingDraft.townCity}, ${pendingListingDraft.state}) is saved in our database! Sign up or sign in to claim your profile so more customers can see you, verify & trust you.`
+                : `Create an account or sign in to publish your listing (${pendingListingDraft.profession} in ${pendingListingDraft.townCity}, ${pendingListingDraft.state}). All details you entered are preserved.`
               : undefined
           }
           initialPhone={pendingListingDraft?.phone || claimArtisanDetails?.phone}
@@ -2316,7 +2334,10 @@ export function App() {
               : undefined
           }
           claimRecommendationId={claimArtisanDetails?.claimId}
-          onClose={() => setIsLoginModalOpen(false)}
+          onClose={() => {
+            setIsLoginModalOpen(false);
+            setPendingListingDraft(null);
+          }}
           onLoginSuccess={(sess, biz) => {
             if (pendingListingDraft) {
               // Stay on /business so the auto-submission effect finalizes the 7-field draft and displays confirmation

@@ -671,6 +671,212 @@ $$;
 REVOKE ALL ON FUNCTION public.apply_referral_attribution(TEXT, UUID, TEXT) FROM PUBLIC, anon;
 GRANT EXECUTE ON FUNCTION public.apply_referral_attribution(TEXT, UUID, TEXT) TO authenticated, service_role;
 
+-- Safe unauthenticated /business portal submission RPC into public.directory_businesses
+-- Ensures direct DB persistence for Matthew AI & Admin reads while enforcing duplicate-phone protection
+-- and preventing anonymous callers from spoofing verification badges or claiming existing accounts.
+CREATE OR REPLACE FUNCTION public.submit_public_directory_listing(
+    p_business_name TEXT,
+    p_full_name TEXT,
+    p_profession TEXT,
+    p_industry TEXT,
+    p_provider_type TEXT,
+    p_phone TEXT,
+    p_state TEXT,
+    p_lga TEXT,
+    p_town_city TEXT,
+    p_referral_code TEXT DEFAULT NULL
+)
+RETURNS JSONB
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+    v_norm_phone TEXT;
+    v_display_name TEXT;
+    v_full_name TEXT;
+    v_profession TEXT;
+    v_industry TEXT;
+    v_provider_type TEXT;
+    v_state TEXT;
+    v_lga TEXT;
+    v_city TEXT;
+    v_address TEXT;
+    v_tagline TEXT;
+    v_description TEXT;
+    v_locations TEXT[];
+    v_categories TEXT[];
+    v_keywords TEXT[];
+    v_metadata JSONB;
+    v_has_dir_dup BOOLEAN := false;
+    v_inserted_id UUID;
+BEGIN
+    v_norm_phone := public.normalize_nigerian_phone(p_phone);
+    IF v_norm_phone IS NULL THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'invalid_phone', true,
+            'error', 'Please provide a valid Nigerian phone number.'
+        );
+    END IF;
+
+    v_full_name := NULLIF(trim(COALESCE(p_full_name, '')), '');
+    v_profession := NULLIF(trim(COALESCE(p_profession, '')), '');
+    v_state := NULLIF(trim(COALESCE(p_state, '')), '');
+    v_lga := NULLIF(trim(COALESCE(p_lga, '')), '');
+    v_city := NULLIF(trim(COALESCE(p_town_city, '')), '');
+
+    IF v_full_name IS NULL OR v_profession IS NULL OR v_state IS NULL OR v_lga IS NULL OR v_city IS NULL THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'error', 'Full name, profession, phone, state, LGA, and town/city are required.'
+        );
+    END IF;
+
+    v_display_name := COALESCE(NULLIF(trim(COALESCE(p_business_name, '')), ''), v_full_name);
+    v_industry := COALESCE(NULLIF(trim(COALESCE(p_industry, '')), ''), 'Commercial & Professional Services');
+    v_provider_type := CASE
+        WHEN p_provider_type IN ('business', 'artisan', 'professional', 'repair_technician', 'agency', 'supplier')
+            THEN p_provider_type
+        WHEN p_provider_type = 'merchant' THEN 'supplier'
+        ELSE 'business'
+    END;
+
+    -- Block duplicates against registered businesses
+    IF EXISTS (
+        SELECT 1
+        FROM public.businesses b
+        WHERE b.phone_e164 = v_norm_phone
+           OR public.normalize_nigerian_phone(b.phone) = v_norm_phone
+    ) THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'duplicate', true,
+            'error', 'A listing with this Nigerian phone number already exists on MatthOrg. Please sign in with that account or use a different contact number.'
+        );
+    END IF;
+
+    IF to_regclass('public.directory_businesses') IS NULL THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'error', 'Directory listings table is not initialized.'
+        );
+    END IF;
+
+    EXECUTE $q$
+        SELECT EXISTS (
+            SELECT 1
+            FROM public.directory_businesses d
+            WHERE public.normalize_nigerian_phone(d.phone) = $1
+               OR public.normalize_nigerian_phone(d.whatsapp) = $1
+        )
+    $q$
+    INTO v_has_dir_dup
+    USING v_norm_phone;
+
+    IF v_has_dir_dup THEN
+        RETURN jsonb_build_object(
+            'success', false,
+            'duplicate', true,
+            'error', 'A listing with this Nigerian phone number already exists on MatthOrg. Please sign in with that account or use a different contact number.'
+        );
+    END IF;
+
+    v_address := v_city || ', ' || v_lga || ', ' || v_state;
+    v_tagline := v_profession || ' in ' || v_city || ', ' || v_lga || ' (' || v_state || ')';
+    v_description := v_display_name || ' offers ' || v_profession || ' services in ' || v_address || '.';
+    v_locations := ARRAY[v_city, v_lga, v_city || ', ' || v_lga, v_state];
+    v_categories := ARRAY[v_profession, v_industry];
+    v_keywords := ARRAY[lower(v_profession), lower(v_city), lower(v_lga), lower(v_state)];
+    v_metadata := jsonb_build_object(
+        'owner_full_name', v_full_name,
+        'lga', v_lga,
+        'town_city', v_city,
+        'referral_code_pending', NULLIF(UPPER(trim(COALESCE(p_referral_code, ''))), ''),
+        'submitted_without_account', true
+    );
+
+    EXECUTE $ins$
+        INSERT INTO public.directory_businesses (
+            linked_business_id,
+            owner_user_id,
+            business_name,
+            provider_type,
+            industry,
+            specialization,
+            description,
+            tagline,
+            phone,
+            whatsapp,
+            email,
+            address,
+            city,
+            state,
+            country,
+            locations_served,
+            categories_offered,
+            keywords,
+            is_registered,
+            is_verified,
+            approval_status,
+            source_type,
+            metadata
+        ) VALUES (
+            NULL,
+            NULL,
+            $1,
+            $2,
+            $3,
+            $4,
+            $5,
+            $6,
+            $7,
+            $7,
+            '',
+            $8,
+            $9,
+            $10,
+            'Nigeria',
+            $11,
+            $12,
+            $13,
+            false,
+            false,
+            'Approved',
+            'business_portal',
+            $14
+        )
+        RETURNING id
+    $ins$
+    INTO v_inserted_id
+    USING
+        v_display_name,
+        v_provider_type,
+        v_industry,
+        v_profession,
+        v_description,
+        v_tagline,
+        v_norm_phone,
+        v_address,
+        v_city,
+        v_state,
+        v_locations,
+        v_categories,
+        v_keywords,
+        v_metadata;
+
+    RETURN jsonb_build_object(
+        'success', true,
+        'duplicate', false,
+        'id', v_inserted_id,
+        'phone', v_norm_phone
+    );
+END;
+$$;
+
+REVOKE ALL ON FUNCTION public.submit_public_directory_listing(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT) FROM PUBLIC;
+GRANT EXECUTE ON FUNCTION public.submit_public_directory_listing(TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT, TEXT) TO anon, authenticated, service_role;
+
 -- ============================================================================
 -- SECTION 5: REFRESH PUBLIC PROFESSIONAL DIRECTORY VIEW (WITH LGA & SAFE COLUMNS)
 -- ============================================================================

@@ -538,7 +538,9 @@ export const ArtisanOutreachView: React.FC<ArtisanOutreachViewProps> = ({
                         {rec.town}, {rec.state}
                       </span>
                       <span className="text-slate-300">·</span>
-                      <span className="tabular-nums">Phone: <strong className="text-slate-900">{rec.phone}</strong></span>
+                      <span className="tabular-nums">
+                        Phone: <strong className="text-slate-900">{rec.phone || 'Not listed'}</strong>
+                      </span>
                     </div>
 
                     {/* Services Offered */}
@@ -589,9 +591,10 @@ export const ArtisanOutreachView: React.FC<ArtisanOutreachViewProps> = ({
                     {/* Quick WhatsApp Send */}
                     <button
                       type="button"
+                      disabled={!rec.whatsapp && !rec.phone}
                       onClick={() => handleQuickWhatsApp(rec)}
-                      className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-[14px] font-bold rounded-xl transition-colors shadow-2xs inline-flex items-center gap-1.5 whitespace-nowrap"
-                      title="Send WhatsApp Invitation directly"
+                      className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-[14px] font-bold rounded-xl transition-colors shadow-2xs inline-flex items-center gap-1.5 whitespace-nowrap"
+                      title={rec.whatsapp || rec.phone ? 'Send WhatsApp Invitation directly' : 'No phone number listed'}
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>WhatsApp</span>
@@ -600,9 +603,10 @@ export const ArtisanOutreachView: React.FC<ArtisanOutreachViewProps> = ({
                     {/* Quick SMS Send */}
                     <button
                       type="button"
+                      disabled={!rec.phone}
                       onClick={() => handleQuickSMS(rec)}
-                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-[14px] font-bold rounded-xl transition-colors shadow-2xs inline-flex items-center gap-1.5 whitespace-nowrap"
-                      title="Send SMS Invitation directly"
+                      className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-[14px] font-bold rounded-xl transition-colors shadow-2xs inline-flex items-center gap-1.5 whitespace-nowrap"
+                      title={rec.phone ? 'Send SMS Invitation directly' : 'No phone number listed'}
                     >
                       <Smartphone className="w-4 h-4" />
                       <span>SMS</span>

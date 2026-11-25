@@ -14,6 +14,7 @@ process.env.MATTHORG_STORE_FILE = TEMP_STORE_FILE;
 import { createApiApp } from '../src/server/app';
 import { setSecurityTestHarness } from '../src/server/security/supabaseServer';
 import { writeStoreFile } from '../src/server/commerce/store';
+import { executeMatthewTool } from '../src/server/matthew/tools';
 
 const MIGRATION_PATH = path.resolve(
   process.cwd(),
@@ -170,6 +171,119 @@ describe('Phone-Only Artisan Auth & Registration Endpoints', () => {
     assert.equal(res.json.data.phone, '+2348094445566');
     assert.equal(res.json.data.business_name, 'Sadiq Ibrahim');
     assert.ok(typeof res.json.referralCode === 'string' && res.json.referralCode.startsWith('MO-'));
+  });
+
+  it('saves unauthenticated /business submission straight to database for Matthew AI & blocks duplicates and unauthorized claims', async () => {
+    // 1. Unauthenticated /business submission (also tries to spoof is_verified / approval_status)
+    const publicRes = await apiReq('POST', '/api/business-listings', {
+      body: {
+        business_name: 'Amaka Bespoke Tailoring',
+        full_name: 'Amaka Okafor',
+        profession: 'Fashion Designer & Tailor',
+        phone: '0809 444 5566',
+        state: 'Lagos',
+        lga: 'Surulere',
+        town_city: 'Bode Thomas',
+        is_verified: true,
+        approval_status: 'Rejected',
+      },
+    });
+
+    assert.equal(publicRes.status, 201);
+    assert.equal(publicRes.json.status, 'created_unclaimed');
+    assert.equal(publicRes.json.requiresSignupToUnlockBenefits, true);
+    assert.equal(publicRes.json.data.is_registered, false);
+    assert.equal(publicRes.json.data.is_verified, false);
+    assert.equal(publicRes.json.data.approval_status, 'Approved');
+    assert.equal(publicRes.json.data.claim_token, undefined);
+    assert.ok(typeof publicRes.json.claimToken === 'string' && publicRes.json.claimToken.length >= 16);
+
+    const createdId = publicRes.json.data.id as string;
+    const claimToken = publicRes.json.claimToken as string;
+
+    // 2. Matthew AI tool + Universal Search + Public Directory immediately read it (without leaking claim_token)
+    const matthewData = await executeMatthewTool(
+      'get_all_businesses_data',
+      { location: 'Surulere' },
+      { businessId: 'demo' }
+    );
+    console.log('matthewData:', JSON.stringify(matthewData, null, 2));
+    assert.ok(
+      Array.isArray(matthewData.businesses) &&
+        matthewData.businesses.some(
+          (b: any) => b.business_name === 'Amaka Bespoke Tailoring' && b.phone === '+2348094445566'
+        ),
+      'Matthew AI get_all_businesses_data must immediately see the /business listing'
+    );
+
+    const searchRes = await apiReq('GET', '/api/search/universal?q=Tailor&location=Surulere');
+    assert.equal(searchRes.status, 200);
+    assert.ok(
+      Array.isArray(searchRes.json.professionals) &&
+        searchRes.json.professionals.some((p: any) => (p.professional?.business_name || p.business_name) === 'Amaka Bespoke Tailoring'),
+      'Universal search must immediately return the /business listing'
+    );
+
+    const dirRes = await apiReq('GET', '/api/commerce/businesses');
+    assert.equal(dirRes.status, 200);
+    const listedDir = dirRes.json.data.find((b: any) => b.id === createdId);
+    assert.ok(listedDir, 'Public directory must return the approved listing');
+    assert.equal(listedDir.claim_token, undefined);
+
+    // 3. Duplicate unauthenticated submission with differently formatted same phone -> 409
+    const dupPublic = await apiReq('POST', '/api/business-listings', {
+      body: {
+        business_name: 'Fake Copycat',
+        full_name: 'Someone Else',
+        profession: 'Tailor',
+        phone: '+234 809 444 5566',
+        state: 'Lagos',
+        lga: 'Surulere',
+        town_city: 'Iponri',
+      },
+    });
+    assert.equal(dupPublic.status, 409);
+    assert.equal(dupPublic.json.duplicate, true);
+
+    // 4. Different user trying to hijack unclaimed listing WITHOUT matching phone or valid claimToken -> 409
+    const hijackAttempt = await apiReq('POST', '/api/business-listings', {
+      token: TOKENS.artisanSecond, // phone +2348057778899
+      body: {
+        business_name: 'Hijacked Shop',
+        full_name: 'Attacker',
+        profession: 'Tailor',
+        phone: '0809 444 5566',
+        state: 'Lagos',
+        lga: 'Surulere',
+        town_city: 'Bode Thomas',
+        claim_directory_business_id: createdId,
+        claim_token: 'forged-token-attempt',
+        update_existing: true,
+      },
+    });
+    assert.equal(hijackAttempt.status, 409);
+
+    // 5. Original user signing up (matching verified phone OR valid claimToken) claims & unlocks profile + referral code
+    const claimRes = await apiReq('POST', '/api/business-listings', {
+      token: TOKENS.artisanPhoneOnly, // phone +2348094445566
+      body: {
+        business_name: 'Amaka Bespoke Tailoring',
+        full_name: 'Amaka Okafor',
+        profession: 'Fashion Designer & Tailor',
+        phone: '+2348094445566',
+        state: 'Lagos',
+        lga: 'Surulere',
+        town_city: 'Bode Thomas',
+        claim_directory_business_id: createdId,
+        claim_token: claimToken,
+        update_existing: true,
+      },
+    });
+    assert.equal(claimRes.status, 201);
+    assert.equal(claimRes.json.status, 'created');
+    assert.equal(claimRes.json.data.id, createdId);
+    assert.equal(claimRes.json.data.is_registered, true);
+    assert.ok(typeof claimRes.json.referralCode === 'string' && claimRes.json.referralCode.startsWith('MO-'));
   });
 });
 
@@ -385,5 +499,11 @@ describe('20261124 Phone Auth, Business & Referral SQL Migration Security Checks
         `public_professionals must not expose ${sensitive}`
       );
     }
+  });
+
+  it('defines submit_public_directory_listing RPC with duplicate-phone guard and non-verified defaults', () => {
+    assert.match(cleanSql, /CREATE\s+OR\s+REPLACE\s+FUNCTION\s+public\.submit_public_directory_listing\b/i);
+    assert.match(cleanSql, /GRANT\s+EXECUTE\s+ON\s+FUNCTION\s+public\.submit_public_directory_listing\b[\s\S]*?TO\s+anon,\s*authenticated,\s*service_role/i);
+    assert.match(cleanSql, /to_regclass\('public\.directory_businesses'\)/i);
   });
 });
